@@ -1,0 +1,27 @@
+<h2>Crear artículo</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Publicar</button>
+</form>
+<a href="{% url 'post:post-list' %}">Volver a la lista de artículos</a>
+
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto; padding: 20px; background: #1f1f1f; border-radius: 10px;">
+    <h2 style="text-align:center; margin-bottom: 20px;">Crear nuevo artículo</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit"
+            style="width: 100%; padding: 10px; margin-top: 10px; border: none;
+                   border-radius: 5px; cursor: pointer; font-size: 16px;">
+            Publicar
+        </button>
+    </form>
+</div>
+{% endblock %}

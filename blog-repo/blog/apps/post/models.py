@@ -12,13 +12,13 @@ class Articulo(models.Model):
 
     def __str__(self):
         return self.titulo
-
+    
 class Categoria(models.Model):
     nombre = models.CharField(max_length=150)
 
     def __str__(self):
         return self.nombre
-
+    
 class Comentario(models.Model):
     articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE, related_name='comentarios')
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)

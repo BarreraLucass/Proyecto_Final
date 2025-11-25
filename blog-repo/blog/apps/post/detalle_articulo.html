@@ -1,0 +1,22 @@
+<h2>{{ articulo.titulo }}</h2>
+<p>{{ articulo.contenido }}</p>
+<img src="{{ articulo.imagen.url }}" alt="">
+
+<h3>Comentarios</h3>
+
+{% for c in articulo.comentarios.all %}
+    <p><b>{{ c.usuario }}</b>: {{ c.contenido }}</p>
+    {% if user == c.usuario or user.is_staff %}
+        <a href="{% url 'editar_comentario' c.id %}">Editar</a>
+        <a href="{% url 'eliminar_comentario' c.id %}">Eliminar</a>
+    {% endif %}
+{% endfor %}
+
+{% if user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="contenido"></textarea>
+    <button type="submit">Comentar</button>
+</form>
+{% endif %}
+<a href="{% url 'post:post-list' %}">Volver a la lista de artículos</a>
