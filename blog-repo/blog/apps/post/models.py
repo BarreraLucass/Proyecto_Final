@@ -28,3 +28,12 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"Comentario de {self.usuario} en {self.articulo}"
+
+class Meta:
+    ordering = ['-fecha']
+    verbose_name = 'Comentario'
+    verbose_name_plural = 'Comentarios'
+
+likes = models.ManyToManyField(User, related_name='likes', blank=True)
+def total_likes(self):
+    return self.likes.count()

@@ -74,3 +74,15 @@ def eliminar_comentario(request, id):
         comentario.delete()
 
     return redirect('detalle_articulo', slug=comentario.articulo.slug)
+
+@login_required
+def like_articulo(request, slug):
+    articulo = Articulo.objects.get(slug=slug)
+
+    if request.user in articulo.likes.all():
+        articulo.likes.remove(request.user)
+    else:
+        articulo.likes.add(request.user)
+
+    return redirect('detalle_articulo', slug=slug)
+

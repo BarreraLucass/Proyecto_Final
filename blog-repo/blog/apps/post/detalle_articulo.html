@@ -4,6 +4,13 @@
 
 <h3>Comentarios</h3>
 
+<form action="{% url 'like_articulo' articulo.slug %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">
+        ❤️ {{ articulo.likes.count }}
+    </button>
+
+</form>
 {% for c in articulo.comentarios.all %}
     <p><b>{{ c.usuario }}</b>: {{ c.contenido }}</p>
     {% if user == c.usuario or user.is_staff %}
@@ -20,3 +27,6 @@
 </form>
 {% endif %}
 <a href="{% url 'post:post-list' %}">Volver a la lista de artículos</a>
+
+
+
