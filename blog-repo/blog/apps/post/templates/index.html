@@ -157,9 +157,18 @@
                     </form>
                 </div>
 
-                <div class="col-md-2 text-end">
-                    <a href="/admin" class="btn btn-info text-white fw-bold px-4">Login</a>
-                </div>
+               <div class="col-md-2 text-end">
+    {% if user.is_authenticated %}
+        <span class="text-white fw-bold me-2">Hola, {{ user.username }}</span>
+        
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm fw-bold">Salir</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-info text-white fw-bold px-4">Login</a>
+    {% endif %}
+</div>
             </div>
         </div>
     </header>
@@ -173,16 +182,20 @@
         <div class="row">
             {% for noticia in noticias_top %}
             <div class="col-md-4">
-                <div class="card-top">
-                    {% if noticia.imagen %}
-                        <img src="{{ noticia.imagen.url }}" alt="{{ noticia.titulo }}" style="width:100%; height:100%; object-fit: cover;">
-                    {% else %}
-                        <div class="p-3 text-center">
-                            <h5>{{ noticia.titulo }}</h5>
-                            <p class="small text-muted">{{ noticia.categoria.nombre }}</p>
-                        </div>
-                    {% endif %}
-                </div>
+               <div class="card-top">
+    <a href="{% url 'detalle_noticia' noticia.id %}" style="text-decoration: none; color: inherit; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        
+        {% if noticia.imagen %}
+            <img src="{{ noticia.imagen }}" alt="{{ noticia.titulo }}" style="width:100%; height:100%; object-fit: cover;">
+        {% else %}
+            <div class="p-3 text-center">
+                <h5>{{ noticia.titulo }}</h5>
+                <p class="small text-muted">{{ noticia.categoria.nombre }}</p>
+            </div>
+        {% endif %}
+
+    </a>
+</div>
             </div>
             {% empty %}
                 <p class="text-white">No hay noticias recientes.</p>
@@ -202,12 +215,12 @@
         <div class="row">
             {% for noticia in noticias_destacadas %}
             <div class="col-md-6 mb-4">
-                <div class="card-big">
-                    <h2 class="fw-bold">{{ noticia.titulo|upper }}</h2>
-                    <p class="fs-5">{{ noticia.contenido|truncatewords:20 }}</p>
-                    <span class="badge bg-danger mt-2">IMPORTANTE</span>
-                    <a href="#" class="btn btn-outline-primary mt-3 rounded-pill">Leer más</a>
-                </div>
+               <div class="card-big">
+    <h2 class="fw-bold">{{ noticia.titulo|upper }}</h2>
+    <p class="fs-5">{{ noticia.contenido|truncatewords:20 }}</p>
+    
+    <a href="{% url 'detalle_noticia' noticia.id %}" class="btn btn-outline-primary mt-3 rounded-pill">Leer más</a>
+</div>
             </div>
             {% empty %}
                 <div class="col-md-6 mb-4"><div class="card-big">NOTA IMPORTANTE DE LA SEMANA POR AHI VA</div></div>

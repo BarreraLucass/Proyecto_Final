@@ -17,11 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
-from apps.post.views import home
+from django.contrib.auth import views as auth_views
+from apps.post.views import home, detalle_noticia, dar_like
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path('noticia/<int:pk>/', detalle_noticia, name='detalle_noticia'),
+    path('noticia/<int:pk>/like/', dar_like, name='dar_like'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:
