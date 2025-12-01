@@ -6,7 +6,7 @@
     <a href="{% url 'core:index' %}">
         <img
         src="{% static 'img/logo.png' %}"
-        alt="AulaNet Logo"
+        alt="Resistencia Viva Logo"
         class="h-8 w-8"
         />
     </a>
@@ -17,7 +17,7 @@
     <!-- MENU DESKTOP -->
     <div class="hidden md:flex justify-center space-x-6">
     <a href="{% url 'core:index' %}" class="hover:text-blue-500">Inicio</a>
-    <a href="{% url 'school:school-list' %}" class="hover:text-blue-500">Articulos</a>
+    <a href="{% url 'resistenciaViva:articulos-list' %}" class="hover:text-blue-500">Articulos</a>
     <a href="{% url 'core:about' %}" class="hover:text-blue-500">Acerca de Nosotros</a>
     <a href="{% url 'core:contact' %}" class="hover:text-blue-500">Contactanos!</a>
     </div>
@@ -65,7 +65,7 @@
     class="block py-2 border-b dark:border-gray-600"
     >Inicio</a>
     <a
-    href="{% url 'school:school-list' %}"
+    href="{% url 'resistenciaViva:articulos-list' %}"
     class="block py-2 border-b dark:border-gray-600"
     >Articulos</a>
     <a
