@@ -14,3 +14,12 @@ else:
 LOGIN_REDIRECT_URL = 'home'
 # Redirigir al home después del logout (o al login si prefieres)
 LOGOUT_REDIRECT_URL = 'home'
+
+STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = [
+   # BASE_DIR / "static",
+    
+     os.path.join(BASE_DIR, 'static'),
+]

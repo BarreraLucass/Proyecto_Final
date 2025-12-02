@@ -10,7 +10,7 @@ NOTICIAS_FAKE = [
         'contenido': 'Fue un partido increíble donde la hinchada no paró de alentar...',
         'categoria': {'id': 1, 'nombre': 'ArtesVisuales'},
         'fecha_publicacion': '27 Nov 2025',
-        'imagen': None, 
+        'imagen': 'public/puro_disenio1.jpg',
         'es_importante': True,
         'likes': 120
     },
@@ -20,7 +20,7 @@ NOTICIAS_FAKE = [
         'contenido': 'La inteligencia artificial sigue avanzando a pasos agigantados...',
         'categoria': {'id': 2, 'nombre': 'TecnoMusicaCinelogía'},
         'fecha_publicacion': '26 Nov 2025',
-        'imagen': None,
+        'imagen': 'public/imagen2.jpg',
         'es_importante': False,
         'likes': 45
     },
@@ -30,7 +30,7 @@ NOTICIAS_FAKE = [
         'contenido': 'Los mejores artistas se reúnen este fin de semana...',
         'categoria': {'id': 3, 'nombre': 'CuTeatrostura'},
         'fecha_publicacion': '25 Nov 2025',
-        'imagen': None,
+        'imagen': 'public/imagen3.jpg',
         'es_importante': False,
         'likes': 300
     },
@@ -40,7 +40,7 @@ NOTICIAS_FAKE = [
         'contenido': 'Texto de prueba para ver el diseño...',
         'categoria': {'id': 4, 'nombre': 'Eventos'},
         'fecha_publicacion': '20 Nov 2025',
-        'imagen': None,
+        'imagen': 'public/imagen4.jpg',
         'es_importante': True,
         'likes': 10
     }

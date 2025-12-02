@@ -223,7 +223,7 @@
             <div class="col-lg-6 mb-4">
                 <div class="main-image-container">
                     {% if noticia.imagen %}
-                        <img src="{{ noticia.imagen }}" alt="{{ noticia.titulo }}">
+                        <img src="{% static noticia.imagen %}" alt="{{ noticia.titulo }}">
                     {% else %}
                         <div class="d-flex align-items-center justify-content-center h-100 bg-secondary text-white">
                             Sin Imagen Principal
@@ -234,7 +234,7 @@
                 <div class="row gallery-row">
                     <div class="col-6">
                         {% if noticia.imagen %}
-                            <img src="{{ noticia.imagen }}" alt="thumb1">
+                            <img src="{% static noticia.imagen %}" alt="thumb1">
                         {% else %}
                              <div style="height:150px; background:#ccc;"></div>
                         {% endif %}

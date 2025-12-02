@@ -259,7 +259,7 @@
                     <div class="custom-card">
                         <div class="card-img-wrapper">
                             {% if noticia.imagen %}
-                                <img src="{{ noticia.imagen }}" alt="{{ noticia.titulo }}">
+                                <img src="{% static noticia.imagen %}" alt="{{ noticia.titulo }}">
                             {% else %}
                                 <div class="d-flex align-items-center justify-content-center h-100 bg-secondary text-white">
                                     Sin Imagen
