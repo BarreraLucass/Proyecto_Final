@@ -24,6 +24,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Apps nuestras 
+    'apps.user',
+    'apps.post',
+    'apps.categorias',
+    'apps.comentarios',
 ]
 
 MIDDLEWARE = [
@@ -41,7 +46,7 @@ ROOT_URLCONF = 'blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'template')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,6 +64,10 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+
+AUTH_USER_MODEL = "user.User"
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

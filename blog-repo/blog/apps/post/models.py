@@ -1,14 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+#SEGUIR COMPLETANTDO LA LOGICA DE POST
+
 class Articulo(models.Model):
     titulo = models.CharField(max_length=200)
-    contenido = models.TextField()
+    contenido = models.TextField(max_length=10000)
     fecha = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True, blank=True)
     imagen = models.ImageField(upload_to='articulos/', blank=True, null=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=150, blank=True)
+    allow_comments = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo
