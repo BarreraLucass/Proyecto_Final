@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
+import categorias
+import os
+import comentarios
 
 #SEGUIR COMPLETANTDO LA LOGICA DE POST
 
@@ -12,6 +16,7 @@ class Articulo(models.Model):
     imagen = models.ImageField(upload_to='articulos/', blank=True, null=True)
     slug = models.SlugField(unique=True, max_length=150, blank=True)
     allow_comments = models.BooleanField(default=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):
         return self.titulo
