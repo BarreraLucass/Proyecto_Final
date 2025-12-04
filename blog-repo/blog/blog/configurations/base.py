@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'apps.post',
     'apps.categorias',
     'apps.comentarios',
+    'apps.core',
+    'apps.resistenciaViva',
 ]
 
 MIDDLEWARE = [
