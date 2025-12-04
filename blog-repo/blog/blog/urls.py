@@ -1,8 +1,8 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from blog.view import IndexView
+from .view import IndexView
+
 
 #Seguir con las rutas
 urlpatterns = [
@@ -22,3 +22,10 @@ if settings.DEBUG:
     
     urlpatterns += static(settings.STATIC_URL, document_root= settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+
+# probando metodos para agregar categorias
+'''
+    urlpatterns = [
+    path("", include("categorias.urls")),
+]
+'''

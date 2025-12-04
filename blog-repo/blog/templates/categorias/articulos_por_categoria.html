@@ -1,0 +1,13 @@
+<h2>Artículos en {{ categoria.nombre }}</h2>
+<p>{{ categoria.descripcion }}</p>
+
+<ul>
+  {% for articulo in articulos %}
+    <li>
+      <a href="{% url 'detalle_articulo' articulo.slug %}">{{ articulo.titulo }}</a>
+      <small>{{ articulo.fecha }}</small>
+    </li>
+  {% empty %}
+    <li>No hay artículos en esta categoría.</li>
+  {% endfor %}
+</ul>
