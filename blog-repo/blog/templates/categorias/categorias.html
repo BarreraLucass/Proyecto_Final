@@ -6,6 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    CAJA DE CATEGORIAS
+    <h2>Listado de categorías</h2>
+
+    <ul>
+      {% for categoria in categorias %} <!--recorre todas las categorías que le pases desde view -->
+        <li>
+            <a href="{% url 'articulos_por_categoria' categoria.slug %}"> <!--genera el link hacia la vista que muestra los artículos de esa categoría. -->
+                {{ categoria.nombre }}
+            </a>
+            {% if categoria.descripcion %} <!--muestra la descripción si existe -->
+              <p>{{ categoria.descripcion }}</p>
+            {% endif %}
+        </li>
+      {% empty %}
+        <li>No hay categorías disponibles.</li> <!--mensaje si no hay categorías -->
+      {% endfor %}
+    </ul>
+
 </body>
-</html>
+</html> 

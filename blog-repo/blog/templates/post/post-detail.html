@@ -1,0 +1,31 @@
+<h1>{{ articulo.titulo }}</h1>
+{% if articulo.imagen %}
+  <img src="{{ articulo.imagen.url }}" alt="{{ articulo.titulo }}" style="max-width:400px; height:auto;">
+{% endif %}
+
+<p><strong>Categoría:</strong> {{ articulo.categoria.nombre }}</p>
+<p>{{ articulo.contenido }}</p>
+
+<hr>
+
+<h2>Comentarios</h2>
+<ul>
+  {% for comentario in comentarios %}
+    <li>
+      <strong>{{ comentario.usuario.username }}</strong> dijo:
+      <p>{{ comentario.contenido }}</p>
+      <small>Publicado el {{ comentario.fecha }}</small>
+    </li>
+  {% empty %}
+    <li>No hay comentarios todavía, ¡sé el primero en opinar!</li>
+  {% endfor %}
+</ul>
+
+<hr>
+
+<h3>Dejá tu comentario</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Enviar</button>
+</form>
