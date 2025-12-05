@@ -2,27 +2,31 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
 import os
+from django.conf import settings
+from django.templatetags.static import static
 
-
-def get_avatar_filename(instance, filename):
-    # Generar un nombre unico para el avatar usando el UUID del usuario
-    # asdasdasdasdasdas.png
-    _, file_extension = os.path.splitext(filename)
-    new_filename = f"user-{instance.id}-avatar{file_extension}"
-    # user\avatar\user-c9b6af13-94b3-412f-a2d1-0bc7ebc06594-avatar.png
-    return os.path.join("user/avatar/", new_filename)
-
+def avatar_filename(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f"{uuid.uuid4()}.{ext}"
+    return os.path.join('user', 'avatars', filename)
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     alias = models.CharField(max_length=30, blank=True)
     avatar = models.ImageField(
-        upload_to=get_avatar_filename, default="user/default/avatar-default.png"
+        upload_to=avatar_filename,
+        default='user/default/avatar-default.png',
+        blank=True,
+        null=True
     )
 
     def __str__(self):
         return self.username
 
     def get_avatar_url(self):
-        if self.avatar:
+        if self.avatar and hasattr(self.avatar, 'url'):
             return self.avatar.url
+        # Si preferís usar STATIC para el avatar por defecto:
+        return static('user/default/avatar-default.png')
+        # O si querés usar MEDIA:
+        # return settings.MEDIA_URL + 'user/default/avatar-default.png'
