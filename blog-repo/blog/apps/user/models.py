@@ -3,20 +3,26 @@ from django.contrib.auth.models import AbstractUser
 import uuid
 import os
 
-def avatar_filename(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = f"{uuid.uuid4()}.{ext}"
-    return os.path.join('user/avatars/', filename)
+
+def get_avatar_filename(instance, filename):
+    # Generar un nombre unico para el avatar usando el UUID del usuario
+    # avatarconnombreunico.png
+    _, file_extension = os.path.splitext(filename)
+    new_filename = f"user-{instance.id}-avatar{file_extension}"
+    # user\avatar\user-c9b6af13-94b3-412f-a2d1-0bc7ebc06594-avatar.png
+    return os.path.join("user/avatar/", new_filename)
+
 
 class User(AbstractUser):
-    avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    alias = models.CharField(max_length=30, unique=True, null=True, blank=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    alias = models.CharField(max_length=30, blank=True)
+    avatar = models.ImageField(
+        upload_to=get_avatar_filename, default="user/default/avatar-default.png"
+    )
 
     def __str__(self):
         return self.username
-    
+
     def get_avatar_url(self):
         if self.avatar:
             return self.avatar.url
-        return "/static/default_avatar.png"  # agregar avatar por defecto si no tiene, uno femenino, masculino y neutros.

@@ -7,8 +7,8 @@ from .view import IndexView
 #Seguir con las rutas
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("apps.core.urls", namespace="core")),
-    path('', include('apps.user.urls')),
+    path('', include("apps.core.urls", namespace='core')),
+    path('', include('apps.user.urls', namespace='user')),
     path('', include('apps.comentarios.urls', namespace='comentarios')),
     path('', include('apps.post.urls', namespace='post')),
     path('', include('apps.categorias.urls', namespace='categorias')),

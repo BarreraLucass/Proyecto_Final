@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from django.http import JsonResponse
-from django.core.mail import EmailMessage
+#from django.http import JsonResponse
+#from django.core.mail import EmailMessage
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib import messages

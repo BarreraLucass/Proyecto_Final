@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class ResistenciavivaConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'resistenciaViva'
+    name = 'apps.resistenciaViva'
