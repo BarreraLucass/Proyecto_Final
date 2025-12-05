@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from apps.post.models import Articulo
+from django.conf import settings
 
 # Create your models here.
 class Comentario(models.Model):
     articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE, related_name='comentarios')
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     contenido = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
     activo = models.BooleanField(default=True)
