@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib import messages
+from django.views.generic import TemplateView
 
 
 class IndexView(TemplateView):
