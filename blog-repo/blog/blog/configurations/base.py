@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'apps.comentarios',
     'apps.core',
     'apps.resistenciaViva',
+    'apps.contacto',
 ]
 
 MIDDLEWARE = [

@@ -14,6 +14,7 @@ urlpatterns = [
     path('', include('apps.categorias.urls', namespace='categorias')),
     path('', include('apps.resistenciaViva.urls', namespace='resistenciaViva')),
     path('', include('apps.core.urls')),
+    path("contacto/", include("apps.contacto.urls")),
 ]
 
 

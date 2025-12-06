@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.comentarios',
     'apps.core',
     'apps.resistenciaViva',
+    'apps.contacto',
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -131,3 +132,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuración de correo electrónico usando gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tu_correo@gmail.com'
+EMAIL_HOST_PASSWORD = 'tu_contraseña_de_aplicación'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
