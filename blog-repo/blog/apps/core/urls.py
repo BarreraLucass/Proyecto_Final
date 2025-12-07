@@ -4,7 +4,9 @@ from .views import *
 app_name = "core"
 
 urlpatterns = [
-    path("", IndexView.as_view(), name="index"),
+   path('', home, name='index'),
+    path('detalle/<int:pk>/', detalle_noticia, name='detalle_noticia'),
+    path('detalle/<int:pk>/like/', dar_like, name='dar_like'),
     path("contacto/", ContactView.as_view(), name="contact"),
     path("acerca-de/", AboutView.as_view(), name="about"),
     path("404/", NotFoundView.as_view(), name="404"),

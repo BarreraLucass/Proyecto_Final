@@ -1,84 +1,44 @@
 {% load static %}
-<nav class="max-w-6xl mx-auto px-4 py-3">
-<div class="grid grid-cols-2 md:grid-cols-3 items-center">
-    <!-- LOGO -->
-    <div class="flex items-center space-x-3">
-    <a href="{% url 'core:index' %}">
-        <img
-        src="{% static 'img/logo.png' %}"
-        alt="Resistencia Viva Logo"
-        class="h-8 w-8"
-        />
-    </a>
-    <a href="{% url 'core:index' %}"
-        ><span class="text-xl font-bold">Resistencia Viva</span></a>
+
+<div class="container header-container">
+    <div class="row align-items-center mb-4">
+        <div class="col-md-4">
+            <a href="{% url 'core:index' %}" class="text-decoration-none">
+                <img src="{% static 'public/logo1.png' %}" alt="Resistencia Viva Logo" style="max-height: 80px; width: auto;">
+            </a>
+        </div>
+
+        <div class="col-md-8 d-flex justify-content-end align-items-center gap-3">
+            <form action="{% url 'core:index' %}" method="GET" style="position: relative; width: 300px;">
+                <input type="text" name="q" class="form-control search-input" placeholder="" value="{{ request.GET.q|default:'' }}">
+                <button type="submit" class="search-btn"><i class="bi bi-search text-dark"></i></button>
+            </form>
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'user:login' %}" method="post"> 
+                    {% csrf_token %}
+                    <button type="submit" class="btn-login-header">LOGOUT</button>
+                </form>
+            {% else %}
+                <a href="{% url 'user:login' %}" class="btn-login-header">Login</a>
+            {% endif %}
+        </div>
     </div>
 
-    <!-- MENU DESKTOP -->
-    <div class="hidden md:flex justify-center space-x-6">
-    <a href="{% url 'core:index' %}" class="hover:text-blue-500">Inicio</a>
-    <a href="{% url 'resistenciaViva:articulos-list' %}" class="hover:text-blue-500">Articulos</a>
-    <a href="{% url 'core:about' %}" class="hover:text-blue-500">Acerca de Nosotros</a>
-    <a href="{% url 'core:contact' %}" class="hover:text-blue-500">Contactanos!</a>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end align-items-center nav-links">
+            <a href="?categoria=1" class="nav-link-custom {% if request.GET.categoria == '1' %}active{% endif %}">
+               Artes Visuales
+            </a>
+            <a href="?categoria=2" class="nav-link-custom {% if request.GET.categoria == '2' %}active{% endif %}">
+               Musica y Cine
+            </a>
+            <a href="?categoria=3" class="nav-link-custom {% if request.GET.categoria == '3' %}active{% endif %}">
+               Teatros
+            </a>
+            <a href="?categoria=4" class="nav-link-custom {% if request.GET.categoria == '4' %}active{% endif %}">
+               Eventos
+            </a>
+        </div>
     </div>
-
-    <!-- LADO DERECHO (login + tema) -->
-    <div class="hidden md:flex items-center justify-end space-x-3">
-    <!-- BOTÓN DARK MODE -->
-    <button
-        id="themeToggle"
-        class="px-2 py-1 border rounded dark:border-gray-500"
-    >
-        🌓
-    </button>
-
-    <!-- LOGIN -->
-    <a
-        href="{% url 'user:login' %}"
-        class="px-4 py-2 block py-2 bg-[var(--bg-button-primary)] text-white rounded hover:bg-[var(--bg-button-primary-hover)]"
-    >
-        Login
-    </a>
-    </div>
-
-    <!-- BOTÓN MOBILE MENU -->
-    <button
-    id="navToggle"
-    class="md:hidden justify-self-end px-2 py-1 border rounded dark:border-gray-500"
-    >
-    ☰
-    </button>
 </div>
-
-<!-- MENU MOBILE -->
-<div id="mobileMenu" class="hidden flex-col mt-3 space-y-2 md:hidden">
-    <!-- SWITCH TEMA MOBILE -->
-    <button
-    id="themeToggleMobile"
-    class="w-full py-2 border rounded dark:border-gray-500 text-center"
-    >
-    🌓 Tema
-    </button>
-
-    <a
-    href="{% url 'core:index' %}"
-    class="block py-2 border-b dark:border-gray-600"
-    >Inicio</a>
-    <a
-    href="{% url 'resistenciaViva:articulos-list' %}"
-    class="block py-2 border-b dark:border-gray-600"
-    >Articulos</a>
-    <a
-    href="{% url 'core:about' %}"
-    class="block py-2 border-b dark:border-gray-600"
-    >Acerca de Nosotros</a>
-    <a
-    href="{% url 'core:contact' %}"
-    class="block py-2 border-b dark:border-gray-600"
-    >Contactanos</a>
-    <a
-    href="{% url 'user:login' %}"
-    class="block py-2 bg-[var(--bg-button-primary)] text-white text-center rounded hover:bg-[var(--bg-button-primary-hover)]"
-    >Login </a>
-</div>
-</nav>
