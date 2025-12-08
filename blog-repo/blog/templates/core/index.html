@@ -1,6 +1,55 @@
-{% extends 'includes/header.html' %}
+{% extends "base.html" %}
+{% load static %}
 
+{% block content %}
 
-{% block content_layout %}
-    VAMOS ESE TEAM GATOMACHI - RESISTENCIA VIVA BLOG
-{% endblock content_layout %}
+<!-- HERO -->
+<div class="container">
+    <div class="hero-text text-center my-10">
+        <h3>El museo a cielo abierto<br><strong>tiene agenda propia.</strong></h3>
+        <h2 class="mt-3">Bienvenido a tu <strong>guía cultural<br>de Resistencia.</strong></h2>
+    </div>
+</div>
+
+<!-- NOTICIAS TOP -->
+<div class="container mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+    {% for noticia in noticias_top %}
+    <a href="{% url 'detalle_noticia' noticia.id %}" class="block">
+
+        <div class="border-0 bg-transparent transition-transform hover:-translate-y-1">
+
+            <!-- Imagen tamaño normal -->
+            <div class="h-48 md:h-56 w-full overflow-hidden bg-gray-300">
+                {% if noticia.imagen %}
+                    <img src="{% static noticia.imagen %}" 
+                         class="w-full h-full object-cover"
+                         alt="{{ noticia.titulo }}">
+                {% else %}
+                    <div class="flex items-center justify-center h-full text-white bg-gray-600">
+                        Sin Imagen
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Título -->
+            <div class="flex items-stretch mt-2">
+                <div class="w-3 bg-[var(--dynamic-color)]"></div>
+                <div class="pl-3 py-1">
+                    <h3 class="uppercase font-bold text-lg leading-tight">
+                        {{ noticia.titulo }}
+                    </h3>
+                </div>
+            </div>
+
+        </div>
+
+    </a>
+    {% empty %}
+        <p class="text-center col-span-full">No hay eventos cargados.</p>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

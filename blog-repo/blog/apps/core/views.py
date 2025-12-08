@@ -6,7 +6,8 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django.views.generic import TemplateView
-
+from django.shortcuts import render
+from apps.core.data import CATEGORIAS_FAKE, NOTICIAS_FAKE
 
 class IndexView(TemplateView):
     template_name = "core/index.html"
@@ -83,3 +84,33 @@ def contact_send(request):
 
     messages.success(request, "Mensaje enviado correctamente")
     return redirect("core:contact")
+
+def home_final(request):
+    categoria_id = request.GET.get('categoria')
+    busqueda = request.GET.get('q')
+
+    noticias = NOTICIAS_FAKE
+    color_actual = '#E85D45'
+
+    if categoria_id:
+        categoria_id = int(categoria_id)
+        noticias = [n for n in noticias if n['categoria']['id'] == categoria_id]
+
+        cat_obj = next((c for c in CATEGORIAS_FAKE if c['id'] == categoria_id), None)
+        if cat_obj:
+            color_actual = cat_obj['color']
+
+    if busqueda:
+        noticias = [n for n in noticias if busqueda.lower() in n['titulo'].lower()]
+
+    noticias_top = noticias[:3]
+    noticias_destacadas = [n for n in noticias if n['es_importante']]
+
+    context = {
+        'noticias_top': noticias_top,
+        'noticias_destacadas': noticias_destacadas,
+        'categorias': CATEGORIAS_FAKE,
+        'color_activo': color_actual,
+    }
+
+    return render(request, 'core/index.html', context)

@@ -1,0 +1,37 @@
+<footer class="footer-custom py-10 bg-[#07151d] text-white">
+    <div class="container mx-auto px-4">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- Columna 1: Redes -->
+            <div>
+                <div class="flex space-x-4 text-3xl mb-4">
+                    <i class="bi bi-instagram"></i>
+                    <i class="bi bi-facebook"></i>
+                </div>
+                <p class="font-bold text-lg">Resistencia Viva Agenda Cultural</p>
+                <small>@resistenciaviva_agendacultural</small>
+            </div>
+
+            <!-- Columna 2: Enlaces del sitio -->
+            <div class="text-center">
+                <h4 class="font-bold text-xl mb-3">Sitio</h4>
+
+                <ul class="space-y-2">
+                    <li><a href="{% url 'core:about' %}" class="hover:underline">Acerca de</a></li>
+                    <li><a href="{% url 'core:contact' %}" class="hover:underline">Contacto</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Créditos -->
+            <div class="text-right">
+                <span class="fw-bold border border-white px-3 py-1 inline-block mb-2">
+                    Resistencia Viva
+                </span>
+                <small class="d-block">Desarrollado por</small>
+                <strong>LEGENDS GROUP</strong>
+            </div>
+
+        </div>
+    </div>
+</footer>

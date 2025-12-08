@@ -2,6 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from .models import Categoria
 from apps.post.models import Articulo
 
+CATEGORIAS_FAKE = [
+    {'id': 1, 'nombre': 'Artes Visuales', 'color': '#07151d'}, 
+    {'id': 2, 'nombre': 'Musica y Cine',  'color': '#ea7300'}, 
+    {'id': 3, 'nombre': 'Teatros',        'color': '#702007'}, 
+    {'id': 4, 'nombre': 'Eventos',        'color': '#08525e'}, 
+]
+
 def articulos_por_categoria(request, slug): 
     categoria = get_object_or_404(Categoria, slug=slug) # Obtenes la categoría o devolver 404 si no existe
     articulos = Articulo.objects.filter(categoria=categoria).order_by("-fecha") # Filtras los artículos por categoría

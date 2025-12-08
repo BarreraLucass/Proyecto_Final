@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Resistencia Viva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+            @font-face {
+            font-family: 'Hyperspace Race'; 
+            src: url('{% static "fonts/hyperspaceracecapsule-bold.otf" %}'); 
+        }
+        
+        :root {
+            --bg-cream: #FFFAF5;
+            --text-dark: #1a1a1a;
+            --accent-orange: #E85D45;
+            --footer-bg: #0B1623;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            font-family: 'Verdana', sans-serif;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+
+        
+        .header-container { padding: 30px 0; }
+        
+        .logo-box {
+            display: inline-flex;
+            font-family: 'Verdana', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 2px solid black;
+        }
+        .logo-part-1 { background-color: black; color: white; padding: 0 10px; }
+        .logo-part-2 { background-color: white; color: black; padding: 0 10px; }
+
+        .search-input { border: 1px solid black; border-radius: 0; background-color: transparent; }
+        .search-btn { background: none; border: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+
+        .btn-login-header {
+            background-color: black; color: white; border-radius: 0;
+            font-weight: bold; padding: 6px 20px; text-decoration: none;
+        }
+        .nav-links a { color: black; text-decoration: none; font-weight: bold; margin-left: 30px; font-size: 1.1rem; }
+        
+        .btn-eventos {
+            background-color: var(--accent-orange); color: white; border: none;
+            padding: 8px 25px; font-weight: bold; margin-left: 30px; text-decoration: none;
+        }
+
+       
+        .login-wrapper {
+            flex: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .login-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            position: relative;
+        }
+
+       
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--accent-orange);
+        }
+
+        .login-title {
+            font-family: 'Hyperspace Race', sans-serif;
+            text-transform: uppercase;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: black;
+        }
+
+        .form-control {
+            border-radius: 0;
+            padding: 12px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: black;
+            background-color: white;
+        }
+
+        .btn-login-main {
+            background-color: black;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 0;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .btn-login-main:hover {
+            background-color: var(--accent-orange); 
+            color: white;
+        }
+
+     
+        .footer-custom {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 40px 0;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container header-container">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-4">
+                <a href="{% url 'home' %}" class="text-decoration-none">
+                    <div class="logo-box">
+                        <span class="logo-part-1">Resistencia</span>
+                        <span class="logo-part-2">viva</span>
+                    </div>
+                </a>
+            </div>
+           
+        </div>
+      
+    </div>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h1 class="login-title">Ingresar</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger rounded-0 mb-4 text-center small">
+                        Usuario o contraseña incorrectos.
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold small text-uppercase">Usuario</label>
+                    <input type="text" name="username" class="form-control" required placeholder="Escribe tu usuario...">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold small text-uppercase">Contraseña</label>
+                    <input type="password" name="password" class="form-control" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn-login-main">Iniciar Sesión</button>
+
+                <div class="text-center mt-3">
+                    <a href="{% url 'home' %}" class="text-decoration-none text-muted small">Volver al inicio</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="mb-2 fs-4">
+                        <i class="bi bi-instagram me-3"></i>
+                        <i class="bi bi-facebook"></i>
+                    </div>
+                    <p class="mb-0 fw-bold">Resistencia Viva Agenda Cultural</p>
+                    <small>@resistenciaviva_agendacultural</small>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="mb-1">
+                        <span class="fw-bold border border-white px-2 py-1">Resistencia viva</span>
+                    </div>
+                    <small class="d-block">Desarrollado por</small>
+                    <strong>LEGENDS GROUP</strong>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
