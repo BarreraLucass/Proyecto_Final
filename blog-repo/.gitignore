@@ -1,0 +1,8 @@
+entorno
+env
+.env
+.env.example
+__pycache__
+db.sqlite3
+.vscode
+/blog/media

@@ -1,0 +1,175 @@
+{% extends 'layouts/base-layout.html' %}
+{% load static %}
+
+{% block title_layout %}{{ noticia.titulo }} - Resistencia Viva{% endblock %}
+
+{% block content_layout %}
+<style>
+    
+    .detail-scope {
+        --dynamic-color: {{ noticia.categoria.color|default:'#E85D45' }};
+    }
+
+    .detail-wrapper { margin-top: 50px; }
+
+    .main-image-container {
+        width: 100%;
+        height: 500px; 
+        background-color: #ddd;
+        margin-bottom: 20px;
+    }
+    .main-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .gallery-row img {
+        height: 150px;
+        width: 100%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        opacity: 0.8;
+        cursor: pointer;
+    }
+    .gallery-row img:hover { opacity: 1; }
+  
+    .orange-bar-title {
+        width: 100%;
+        height: 25px;
+        background-color: var(--dynamic-color) !important;
+        margin-bottom: 20px;
+    }
+
+    .comment-box { border-left: 5px solid var(--dynamic-color); }
+    .category-badge { background-color: var(--dynamic-color); }
+
+    .detail-title {
+        font-family: 'Hyperspace Race', sans-serif;
+        font-size: 3.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: 20px;
+        color: black;
+    }
+
+    .detail-content {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+    }
+    
+    .detail-scroll-area {
+        max-height: 600px;
+        overflow-y: auto;
+        padding-right: 15px;
+    }
+    
+    .detail-scroll-area::-webkit-scrollbar { width: 8px; }
+    .detail-scroll-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 4px; }
+  
+    .interaction-box {
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-top: 30px;
+    }
+</style>
+
+<div class="container detail-wrapper detail-scope">
+    <div class="row">
+        
+        <div class="col-lg-6 mb-4">
+            <div class="main-image-container">
+                {% if noticia.imagen %}
+                    <img src="{{ noticia.imagen.url }}" alt="{{ noticia.titulo }}">
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center h-100 bg-secondary text-white">
+                        Sin Imagen Principal
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="row gallery-row">
+                <div class="col-6">
+                    {% if noticia.imagen %}
+                        <img src="{{ noticia.imagen.url }}" alt="thumb1">
+                    {% else %}
+                         <div style="height:150px; background:#ccc;"></div>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                     <div style="height:150px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">
+                         Más fotos...
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="orange-bar-title"></div>
+
+            <h1 class="detail-title">{{ noticia.titulo }}</h1>
+
+            <div class="detail-scroll-area">
+                <p class="fw-bold fs-5 text-secondary mb-3">
+                    Categoría: {{ noticia.categoria.nombre }} | Publicado: {{ noticia.fecha_publicacion|date:"d M Y" }}
+                </p>
+
+                <div class="detail-content">
+                    {{ noticia.contenido|linebreaks }}
+                </div>
+
+                <div class="mt-4 pt-3 border-top">
+                    <form action="{% url 'core:dar_like' noticia.id %}" method="POST">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                            {% if liked %}
+                                <button type="submit" class="btn btn-outline-danger border-0 fw-bold">
+                                    <i class="bi bi-heart-fill text-danger"></i> Te gusta ({{ total_likes }})
+                                </button>
+                            {% else %}
+                                <button type="submit" class="btn btn-outline-dark border-0 fw-bold">
+                                    <i class="bi bi-heart"></i> Me gusta ({{ total_likes }})
+                                </button>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'user:login' %}" class="text-muted text-decoration-none">
+                                <i class="bi bi-heart"></i> Inicia sesión para dar like
+                            </a>
+                        {% endif %}
+                    </form>
+                </div>
+
+                <div class="interaction-box mt-4">
+                    <h4 class="font-oswald fw-bold">COMENTARIOS ({{ comentarios|length }})</h4>
+                    
+                    <div class="mb-4">
+                        {% for comentario in comentarios %}
+                            <div class="mb-3 border-bottom pb-2">
+                                <strong>{{ comentario.usuario.username }}</strong>
+                                <small class="text-muted ms-2">{{ comentario.fecha_creacion|timesince }} atrás</small>
+                                <p class="mb-0 small text-secondary">{{ comentario.texto }}</p>
+                            </div>
+                        {% empty %}
+                            <p class="small text-muted">Sé el primero en comentar.</p>
+                        {% endfor %}
+                    </div>
+
+                    {% if user.is_authenticated %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <textarea name="texto" class="form-control mb-2" rows="2" placeholder="Escribe tu opinión..."></textarea>
+                            <button type="submit" class="btn btn-dark btn-sm fw-bold">PUBLICAR</button>
+                        </form>
+                    {% else %}
+                         <p class="small"><a href="{% url 'user:login' %}" class="fw-bold text-dark">Loguéate</a> para comentar.</p>
+                    {% endif %}
+                </div>
+
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock content_layout %}
