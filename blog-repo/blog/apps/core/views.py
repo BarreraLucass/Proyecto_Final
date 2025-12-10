@@ -54,8 +54,8 @@ NOTICIAS_FAKE = [
 ]
 
 CATEGORIAS_FAKE = [
-    {'id': 1, 'nombre': 'Artes Visuales', 'color': '#07151d'}, 
-    {'id': 2, 'nombre': 'Musica y Cine',  'color': '#ea7300'}, 
+    {'id': 1, 'nombre': 'Cultura', 'color': '#07151d'}, 
+    {'id': 2, 'nombre': 'Deportes',  'color': '#ea7300'}, 
     {'id': 3, 'nombre': 'Teatros',        'color': '#702007'}, 
     {'id': 4, 'nombre': 'Eventos',        'color': '#08525e'}, 
 ]
