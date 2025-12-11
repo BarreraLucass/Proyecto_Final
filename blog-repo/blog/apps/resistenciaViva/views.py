@@ -9,6 +9,8 @@ class ListArticuloView(TemplateView):
     template_name = "resistenciaViva/articulos-list.html"
 
 
+class ContactoView(TemplateView):
+    template_name = "resistenciaViva/contacto.html"
 # class UserUpdateView(UpdateView):
 class ReviewArticuloView(TemplateView):
     template_name = "resistenciaViva/review-articulos.html"
@@ -21,3 +23,4 @@ class ArticuloDetailView(TemplateView):
         pk = self.kwargs.get("pk")
         context["articulo_id"] = pk  # para usar en el template
         return context
+
