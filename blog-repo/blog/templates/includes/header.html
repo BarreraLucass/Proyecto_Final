@@ -1,23 +1,37 @@
 {% load static %}
 
 <style>
-    /* Estilo base para los botones de navegación */
+    
     .nav-link-custom {
-        white-space: nowrap; /* Evita que el texto del botón se parta */
+        white-space: nowrap;
         padding: 8px 16px;
-        margin-bottom: 5px; /* Espacio extra si se apilan */
+        margin-bottom: 5px; 
     }
 
-    /* Ajuste para móviles: botones un poco más pequeños para que entren mejor */
+   
     @media (max-width: 768px) {
         .nav-link-custom {
             font-size: 0.9rem;
             padding: 6px 12px;
         }
-        /* Ajuste para que el logo se centre en movil */
+       
         .logo-container {
             text-align: center;
             margin-bottom: 1rem;
+        }
+    }
+
+    .btn-responsive-width {
+        width: 100%;           
+        display: block;         
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .btn-responsive-width {
+            width: auto !important;  
+            display: inline-block;   
+            min-width: 100px;        
         }
     }
 </style>
@@ -38,13 +52,13 @@
                 <button type="submit" class="search-btn"><i class="bi bi-search text-dark"></i></button>
             </form>
 
-            {% if user.is_authenticated %}
-                <form action="{% url 'user:logout' %}" method="post" class="w-100 w-md-auto text-center"> 
+           {% if user.is_authenticated %}
+                <form action="{% url 'user:logout' %}" method="post" class="btn-responsive-width"> 
                     {% csrf_token %}
-                    <button type="submit" class="btn-login-header w-100 w-md-auto">LOGOUT</button>
+                    <button type="submit" class="btn-login-header w-100">LOGOUT</button>
                 </form>
             {% else %}
-                <a href="{% url 'user:login' %}" class="btn-login-header text-center w-100 w-md-auto">Login</a>
+                <a href="{% url 'user:login' %}" class="btn-login-header btn-responsive-width">Login</a>
             {% endif %}
         </div>
     </div>
