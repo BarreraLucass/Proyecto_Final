@@ -1,32 +1,56 @@
 {% load static %}
 
+<style>
+    /* Estilo base para los botones de navegación */
+    .nav-link-custom {
+        white-space: nowrap; /* Evita que el texto del botón se parta */
+        padding: 8px 16px;
+        margin-bottom: 5px; /* Espacio extra si se apilan */
+    }
+
+    /* Ajuste para móviles: botones un poco más pequeños para que entren mejor */
+    @media (max-width: 768px) {
+        .nav-link-custom {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+        }
+        /* Ajuste para que el logo se centre en movil */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    }
+</style>
+
 <div class="container header-container">
     <div class="row align-items-center mb-4">
-        <div class="col-md-4">
+        
+        <div class="col-12 col-md-4 logo-container text-center text-md-start">
             <a href="{% url 'core:index' %}" class="text-decoration-none">
                 <img src="{% static 'public/logo1.png' %}" alt="Resistencia Viva Logo" style="max-height: 80px; width: auto;">
             </a>
         </div>
 
-        <div class="col-md-8 d-flex justify-content-end align-items-center gap-3">
-            <form action="{% url 'core:index' %}" method="GET" style="position: relative; width: 300px;">
+        <div class="col-12 col-md-8 d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center gap-3">
+            
+            <form action="{% url 'core:index' %}" method="GET" style="position: relative; width: 100%; max-width: 300px;">
                 <input type="text" name="q" class="form-control search-input" placeholder="" value="{{ request.GET.q|default:'' }}">
                 <button type="submit" class="search-btn"><i class="bi bi-search text-dark"></i></button>
             </form>
 
             {% if user.is_authenticated %}
-                <form action="{% url 'user:login' %}" method="post"> 
+                <form action="{% url 'user:logout' %}" method="post" class="w-100 w-md-auto text-center"> 
                     {% csrf_token %}
-                    <button type="submit" class="btn-login-header">LOGOUT</button>
+                    <button type="submit" class="btn-login-header w-100 w-md-auto">LOGOUT</button>
                 </form>
             {% else %}
-                <a href="{% url 'user:login' %}" class="btn-login-header">Login</a>
+                <a href="{% url 'user:login' %}" class="btn-login-header text-center w-100 w-md-auto">Login</a>
             {% endif %}
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12 d-flex justify-content-end align-items-center nav-links">
+        <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
             <a href="?categoria=1" class="nav-link-custom {% if request.GET.categoria == '1' %}active{% endif %}">
                Cultura
             </a>

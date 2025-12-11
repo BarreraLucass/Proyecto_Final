@@ -1,12 +1,12 @@
 {% load static %}
 <style>
     .footer-custom {
-        background-color: #0B1623;
-        /* Color Noche */
+        background-color: #0B1623; /* Color Noche */
         color: white;
         padding: 40px 0;
         margin-top: auto;
         width: 100%;
+        overflow-x: hidden; /* Evita scroll horizontal en móviles */
     }
 
     .footer-logo-img {
@@ -14,48 +14,71 @@
         width: auto;
     }
 
-    /* Asegura que los links del footer sean blancos */
+    /* Links y textos */
     .footer-custom a {
         color: white;
         text-decoration: none;
+        transition: color 0.3s ease;
     }
-
     .footer-custom a:hover {
         color: #ccc;
+    }
+
+    /* Estilo de los botones específicos */
+    .btn-footer-link {
+        display: block; /* Para que respeten padding/margin */
+        border: 2px solid white;
+        padding: 5px 15px;
+        text-align: center;
+        font-weight: 500;
+        border-radius: 4px; /* Un pequeño borde redondeado se ve mejor */
+    }
+    .btn-footer-link:hover {
+        background-color: white;
+        color: #0B1623 !important;
+    }
+
+    /* Ajustes finos para iconos */
+    .social-row {
+        font-size: 1.1rem;
     }
 </style>
 
 <footer class="footer-custom">
     <div class="container">
-        <div class="d-flex justify-between aling-items-center">
+        <div class="row align-items-center gy-4">
 
-            <div class="col-md-8 text-center text-md-start mb-3 mb-md-0">
-                <div class="d-flex items-center justify-start gap-1">
-                    <i class="bi bi-instagram mr-2"></i>
+            <div class="col-12 col-md-6 text-center text-md-start">
+                
+                <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-2 social-row">
+                    <i class="bi bi-instagram me-2"></i>
                     <small>@resistenciaviva_agendacultural</small>
-
                 </div>
-                <div class="d-flex items-center justify-start gap-1">
-                    <i class="bi bi-facebook"></i>
-                    <p class="mb-0 ">Resistencia Viva Agenda Cultural</p>
 
+                <div class="d-flex align-items-center justify-content-center justify-content-md-start social-row">
+                    <i class="bi bi-facebook me-2"></i>
+                    <p class="mb-0 small">Resistencia Viva Agenda Cultural</p>
                 </div>
             </div>
 
-            <div class="d-flex text-center text-md-end gap-3">
-                <div class="d-flex flex-column align-items-start mb-3 gap-1">
-                    <a href="/" class="btn-footer border border-2 px-2 ">Nosotros</a>
-                    <a href="/" class="btn-footer border border-2 px-2">Contacto</a>
-                </div>
-                <div class="d-flex flex-column align-items-start ">
-                    <div class="mb-2">
-                        <img src="{% static 'public/logo2.png' %}" alt="Resistencia Viva"
-                            class="footer-logo-img d-inline-block">
+            <div class="col-12 col-md-6">
+                <div class="d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center gap-4">
+                    
+                    <div class="d-flex flex-row flex-md-column gap-2">
+                        <a href="/" class="btn-footer-link">Nosotros</a>
+                        <a href="/" class="btn-footer-link">Contacto</a>
                     </div>
-                    <div class="d-flex align-items-center gap-1">
-                        <small class="text-nowrap ms-2">Desarrollado por: </small>
-                        <strong class="text-uppercase tracking-widest text-nowrap ">LEGENDS GROUP</strong>
+
+                    <div class="d-flex flex-column align-items-center align-items-md-end text-center text-md-end">
+                        <div class="mb-2">
+                            <img src="{% static 'public/logo2.png' %}" alt="Resistencia Viva" class="footer-logo-img">
+                        </div>
+                        <div class="d-flex align-items-center gap-1">
+                            <small>Desarrollado por:</small>
+                            <strong class="text-uppercase">LEGENDS GROUP</strong>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
