@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://use.typekit.net/rug2vlx.css">
 
 <style>
-    /* ... (Tus estilos anteriores) ... */
     .contact-section {
         background-color: #FFF8F0;
         min-height: 100vh;
@@ -17,73 +16,123 @@
         justify-content: center;
         padding: 40px 20px;
     }
+    
     .contact-card {
         background-color: #010E18;
         width: 100%;
         max-width: 600px;
         padding: 60px 50px;
-        border-radius: 10px;
         color: white;
         position: relative;
+        
+  
+        border-radius: 0 0 15px 15px;
     }
+
     .titulo-espacial {
-        /* Fuente corregida */
+       
         font-family: "hyperspace-race-cap-variable", sans-serif;
-        font-variation-settings: "wdth" 75, "wght" 700;
-        font-size: 4rem;
+        font-variation-settings: "wdth" 75, "wght" 300;
+        font-weight: 700; 
+        font-stretch: 75%; 
+        font-size: 3rem; 
+        text-transform: uppercase;
+        
         text-align: center;
         margin-bottom: 40px;
         color: white;
         letter-spacing: 2px;
         line-height: 1;
     }
-    /* Estilos para inputs */
+
     .form-control-custom {
         width: 100%;
-        padding: 12px;
-        margin-bottom: 15px;
+        background-color: white;
         border: none;
+        padding: 12px 15px;
+        margin-bottom: 20px;
+        font-size: 1rem;
+        color: #000;
+        border-radius: 0;
     }
+    textarea.form-control-custom {
+        min-height: 150px;
+        resize: vertical;
+    }
+
     .btn-contact {
-        border: 2px solid white;
         background: transparent;
+        border: 2px solid white;
         color: white;
-        padding: 10px 20px;
-        text-transform: uppercase;
+        padding: 10px 25px;
         font-weight: bold;
-        display: block;
+        text-transform: uppercase;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
         margin-top: 10px;
+        text-decoration: none;
     }
     .btn-contact:hover {
-        background: white;
+        background-color: white;
         color: #010E18;
+    }
+
+    .link-back {
+        color: #FF4500;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        float: right;
+        margin-top: 20px;
+    }
+    .link-back:hover { text-decoration: underline; }
+    
+    @media (max-width: 576px) {
+        .contact-card { padding: 30px 20px; }
+        .titulo-espacial { font-size: 2.5rem; }
     }
 </style>
 
 <div class="contact-section">
     <div class="contact-card">
+        
         <h1 class="titulo-espacial">Contacto</h1>
 
         <form method="POST">
             {% csrf_token %}
-            
-            <label class="text-white">Nombre</label>
-            <input type="text" name="nombre" class="form-control-custom" required>
 
-            <label class="text-white">Email</label>
-            <input type="email" name="email" class="form-control-custom" required>
-
-            <label class="text-white">Asunto</label>
-            <input type="text" name="asunto" class="form-control-custom" required>
-
-            <label class="text-white">Mensaje</label>
-            <textarea name="mensaje" class="form-control-custom" rows="4" required></textarea>
-
-            <button type="submit" class="btn-contact">Enviar Mensaje</button>
-            
-            <div class="text-end mt-3">
-                <a href="{% url 'core:index' %}" style="color: #FF4500;">&lt; Volver al inicio</a>
+            <div>
+                <label class="d-block mb-1 fw-bold text-white">Nombre</label>
+                <input type="text" name="nombre" class="form-control-custom" required>
             </div>
+
+            <div>
+                <label class="d-block mb-1 fw-bold text-white">E-mail</label>
+                <input type="email" name="email" class="form-control-custom" required>
+            </div>
+
+            <div>
+                <label class="d-block mb-1 fw-bold text-white">Asunto</label>
+                <input type="text" name="asunto" class="form-control-custom" required>
+            </div>
+
+            <div>
+                <label class="d-block mb-1 fw-bold text-white">Mensaje</label>
+                <textarea name="mensaje" class="form-control-custom" rows="5" required></textarea>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <button type="submit" class="btn-contact">
+                    Enviar mensaje
+                </button>
+            </div>
+            
+            <div style="text-align: right;">
+                 <a href="{% url 'core:index' %}" class="link-back">&lt; Volver al inicio</a>
+            </div>
+
         </form>
     </div>
 </div>
