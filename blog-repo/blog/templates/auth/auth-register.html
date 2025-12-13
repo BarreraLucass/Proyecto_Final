@@ -4,6 +4,18 @@
 {% block title_layout %}Iniciar Sesión - Resistencia Viva{% endblock title_layout %}
 
 {% block content_layout %}
+<link rel="stylesheet" href="https://use.typekit.net/rug2vlx.css">
+
+<style>
+    .titulo-espacial {
+     font-family: "hyperspace-race-cap-variable", sans-serif;
+        font-variation-settings: "wdth" 75, "wght" 300;
+        font-weight: 700; 
+        font-stretch: 75%; 
+        font-size: 3rem;
+        text-transform: uppercase;
+    }
+</style>
 <div class="min-h-screen flex flex-col justify-between">
     <div class="w-full p-6">
         <a href="{% url 'core:index' %}" class="inline-block hover:opacity-80 transition-opacity">
@@ -14,7 +26,7 @@
 
     <div class="w-full max-w-md bg-brand-noche p-10 rounded-xl shadow-2xl relative">
         
-        <h2 class="text-4xl text-center text-brand-natural font-title uppercase tracking-widest mb-8">
+        <h2 class="titulo-espacial text-4xl text-center text-brand-natural uppercase mb-8">
             Crear cuenta
         </h2>
 
