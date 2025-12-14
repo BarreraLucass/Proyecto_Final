@@ -1,8 +1,8 @@
 from django.urls import path
-import apps.post.views as views
+from .views import detalle_articulo
 
-app_name = "post"
+app_name = 'post'
 
 urlpatterns = [
-    path('posts/', views.PostListView.as_view(), name="post-list"),
-]
+    path('articulo/<slug:slug>/', detalle_articulo, name='detalle_articulo'),
+] 

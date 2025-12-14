@@ -1,54 +1,88 @@
 {% extends "layouts/auth-layout.html" %}
 {% load static %}
 
-{% block title_layout %}Registro{% endblock title_layout %}
+{% block title_layout %}Iniciar Sesión - Resistencia Viva{% endblock title_layout %}
 
 {% block content_layout %}
-<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+<link rel="stylesheet" href="https://use.typekit.net/rug2vlx.css">
 
-<div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">
-    Crear tu cuenta en <span class="text-black-600">Resistencia Viva</span>
-    </h2>
+<style>
+    .titulo-espacial {
+     font-family: "hyperspace-race-cap-variable", sans-serif;
+        font-variation-settings: "wdth" 75, "wght" 300;
+        font-weight: 700; 
+        font-stretch: 75%; 
+        font-size: 3rem;
+        text-transform: uppercase;
+    }
+</style>
+<div class="min-h-screen flex flex-col justify-between">
+    <div class="w-full p-6">
+        <a href="{% url 'core:index' %}" class="inline-block hover:opacity-80 transition-opacity">
+            <img src="{% static 'public/logo1.png' %}" alt="Resistencia Viva Logo" class="h-16 w-auto">
+        </a>
+    </div>
+<div class="min-h-screen flex flex-col items-center justify-center px-4 py-10 mb-3">
 
-    <form method="POST" class="space-y-5">
-    {% csrf_token %}
+    <div class="w-full max-w-md bg-brand-noche p-10 rounded-xl shadow-2xl relative">
+        
+        <h2 class="titulo-espacial text-4xl text-center text-brand-natural uppercase mb-8">
+            Crear cuenta
+        </h2>
 
-    <div>
-        <label class="block text-gray-700 font-medium mb-1">Nombre de usuario</label>
-        <input type="text" name="username"
-            class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 px-3 py-2" required>
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 font-bold">Nombre de usuario</label>
+                <input type="text" name="username"
+                    class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 font-bold">E-mail</label>
+                <input type="email" name="email"
+                    class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 font-bold">Contraseña</label>
+                <input type="password" name="password1"
+                    class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 font-bold">Repetir contraseña</label>
+                <input type="password" name="password2"
+                    class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
+                    required>
+            </div>
+
+            <div class="pt-4">
+                <button class="w-full bg-brand-natural text-brand-noche hover:bg-brand-arena font-title text-xl py-3 rounded font-bold uppercase tracking-wider transition-colors shadow-lg">
+                    Registrarse
+                </button>
+            </div>
+
+            <div class="border-t border-gray-600 mt-6 pt-6 text-center text-brand-natural text-sm">
+                <p>
+                    ¿Ya tenes una cuenta?
+                    <a href="{% url 'user:login' %}" class="inline-block ml-2 border border-brand-tierra text-brand-tierra px-3 py-1 rounded hover:bg-brand-tierra hover:text-white transition-colors font-bold">
+                        Loguearse aquí
+                    </a>
+                </p>
+            </div>
+        </form>
+
     </div>
 
-    <div>
-        <label class="block text-gray-700 font-medium mb-1">Email</label>
-        <input type="email" name="email"
-            class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 px-3 py-2" required>
-    </div>
-
-    <div>
-        <label class="block text-gray-700 font-medium mb-1">Contraseña</label>
-        <input type="password" name="password1"
-            class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 px-3 py-2" required>
-    </div>
-
-    <div>
-        <label class="block text-gray-700 font-medium mb-1">Confirmar Contraseña</label>
-        <input type="password" name="password2"
-            class="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 px-3 py-2" required>
-    </div>
-
-    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition">
-        Registrarse
-    </button>
-
-    <p class="text-center text-gray-600 text-sm mt-3">
-        ¿Ya tenes una cuenta?
-        <a href="{% url 'user:login' %}" class="text-blue-600 hover:underline">Inicia sesión acá</a>
-    </p>
-    </form>
+  
 
 </div>
+    {% include 'includes/footer.html' %}
 
 </div>
 {% endblock content_layout %}
