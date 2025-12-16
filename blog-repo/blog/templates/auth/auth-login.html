@@ -5,10 +5,11 @@
 
 {% block content_layout %}
 <link rel="stylesheet" href="https://use.typekit.net/rug2vlx.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <style>
     .titulo-espacial {
-     font-family: "hyperspace-race-cap-variable", sans-serif;
+    font-family: "hyperspace-race-cap-variable", sans-serif;
         font-variation-settings: "wdth" 75, "wght" 300;
         font-weight: 700; 
         font-stretch: 75%; 
@@ -43,10 +44,17 @@
 
                 <div>
                     <label class="block text-brand-natural text-sm mb-2 font-bold">Ingresar contraseña:</label>
-                    <input type="password" name="password"
+                    <div class="relative">
+                    <input type="password" id= "password" name="password"
                         class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
                         required>
+                    <!-- Botón con ícono de ojo -->
+                    <button type="button" id="togglePassword" 
+                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600 hover:text-brand-atardecer focus:outline-none">
+                        <i class="bi bi-eye"></i>
+                    </button>
                 </div>
+        </div>
 
                 <div class="flex items-center justify-between text-sm">
                     <label class="flex items-center text-brand-natural cursor-pointer">
@@ -80,5 +88,20 @@
 
     {% include 'includes/footer.html' %}
 
+    <script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+        // Cambia el tipo de input
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // Cambia el ícono
+        this.innerHTML = type === "password" 
+            ? '<i class="bi bi-eye"></i>' 
+            : '<i class="bi bi-eye-slash"></i>';
+    });
+</script>
 </div>
 {% endblock content_layout %}
