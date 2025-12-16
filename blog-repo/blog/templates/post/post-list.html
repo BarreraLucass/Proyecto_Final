@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    ESTA ES LA LISTA DE POSTEOS
-</body>
-</html>
+{% extends 'layouts/base-layout.html' %}
+{% block content_layout %}
+<div class="container mt-4">
+    <h2>Lista de artículos</h2>
+    <ul>
+        {% for articulo in articulos %}
+            <li>
+                <a href="{% url 'post:detalle_articulo' articulo.slug %}">{{ articulo.titulo }}</a>
+            </li>
+        {% empty %}
+            <li>No hay artículos cargados.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

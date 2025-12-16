@@ -1,0 +1,82 @@
+{% extends 'layouts/base-layout.html' %}
+{% load static %}
+
+{% block title_layout %}{{ articulo.titulo }} - Resistencia Viva{% endblock %}
+
+{% block content_layout %}
+
+<div class="container mt-4">
+
+    <!-- Imagen principal -->
+    <div class="row mb-4">
+        <div class="col-12">
+            {% if articulo.imagen %}
+                <img src="{{ articulo.imagen.url }}" alt="{{ articulo.titulo }}" class="img-fluid rounded shadow">
+            {% else %}
+                <div class="bg-secondary text-white text-center p-5 rounded">
+                    Sin imagen disponible
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Título + categoría -->
+    <div class="row mb-3">
+        <div class="col-12">
+
+            <div class="d-flex align-items-center mb-2">
+                <div class="orange-strip-card"
+                     style="width: 30px; height: 30px; background-color: var(--accent-orange); margin-right: 10px;">
+                </div>
+                <h2 class="m-0">{{ articulo.titulo }}</h2>
+            </div>
+
+            {% if articulo.categoria %}
+                <span class="badge px-3 py-2"
+                      style="background-color: {{ articulo.categoria.color }}; font-size: 0.9rem;">
+                    {{ articulo.categoria.nombre }}
+                </span>
+            {% endif %}
+
+            <p class="text-muted mt-2" style="font-size: 0.9rem;">
+                Publicado el {{ articulo.fecha_publicacion|date:"d M Y" }}
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <p style="font-size: 1.1rem; line-height: 1.7;">
+                {{ articulo.contenido|linebreaks }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Botones editar y eliminar -->
+    {% if user.is_authenticated and (user == articulo.autor or user.is_staff) %}
+    <div class="mt-4">
+        <a href="{% url 'post:editar_articulo' articulo.slug %}" 
+           class="btn btn-warning me-2">
+            Editar
+        </a>
+        <a href="{% url 'post:eliminar_articulo' articulo.slug %}" 
+           class="btn btn-danger">
+            Eliminar
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Botón volver -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'core:index' %}" class="btn btn-dark px-4 py-2">
+                ← Volver al inicio
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content_layout %}

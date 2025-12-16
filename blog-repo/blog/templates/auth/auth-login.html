@@ -1,21 +1,20 @@
 {% extends "layouts/auth-layout.html" %}
 {% load static %}
 
-{% block title_layout %}Iniciar Sesión - Resistencia Viva{% endblock title_layout %}
-
 {% block content_layout %}
 <link rel="stylesheet" href="https://use.typekit.net/rug2vlx.css">
 
 <style>
     .titulo-espacial {
-     font-family: "hyperspace-race-cap-variable", sans-serif;
+        font-family: "hyperspace-race-cap-variable", sans-serif;
         font-variation-settings: "wdth" 75, "wght" 300;
-        font-weight: 700; 
-        font-stretch: 75%; 
+        font-weight: 700;
+        font-stretch: 75%;
         font-size: 3rem;
         text-transform: uppercase;
     }
 </style>
+
 <div class="min-h-screen flex flex-col justify-between">
     
     <div class="w-full p-6">
@@ -23,7 +22,7 @@
             <img src="{% static 'public/logo1.png' %}" alt="Resistencia Viva Logo" class="h-16 w-auto">
         </a>
     </div>
-
+    
     <div class="flex-grow flex flex-col items-center justify-center px-4 mb-3">
         
         <div class="w-full max-w-md bg-brand-noche p-10 rounded-xl shadow-2xl relative">
@@ -34,17 +33,24 @@
             <form method="POST" class="space-y-6">
                 {% csrf_token %}
 
+                {# 🔥 MOSTRAR ERRORES DEL LOGIN #}
+                {% if form.non_field_errors %}
+                    <div class="bg-red-600 text-white p-3 rounded mb-4 text-center font-bold">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
                 <div>
                     <label class="block text-brand-natural text-sm mb-2 font-bold">Ingresar e-mail:</label>
                     <input type="email" name="email"
-                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
+                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
                         required>
                 </div>
 
                 <div>
                     <label class="block text-brand-natural text-sm mb-2 font-bold">Ingresar contraseña:</label>
                     <input type="password" name="password"
-                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
+                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
                         required>
                 </div>
 
@@ -75,7 +81,6 @@
             </form>
         </div>
 
-        
     </div>
 
     {% include 'includes/footer.html' %}
