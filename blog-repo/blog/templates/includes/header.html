@@ -8,32 +8,32 @@
         margin-bottom: 5px; 
     }
 
-   
-    @media (max-width: 768px) {
-        .nav-link-custom {
-            font-size: 0.9rem;
-            padding: 6px 12px;
-        }
-       
-        .logo-container {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-    }
 
-    .btn-responsive-width {
-        width: 100%;           
-        display: block;         
+@media (max-width: 768px) {
+    .nav-link-custom {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+}
+    .logo-container {
         text-align: center;
+        margin-bottom: 1rem;
     }
 
-    @media (min-width: 768px) {
-        .btn-responsive-width {
-            width: auto !important;  
-            display: inline-block;   
-            min-width: 100px;        
-        }
+
+.btn-responsive-width {
+    width: 100%;           
+    display: block;         
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .btn-responsive-width {
+        width: auto !important;  
+        display: inline-block;   
+        min-width: 100px;        
     }
+}
 </style>
 
 <div class="container header-container">
@@ -52,31 +52,31 @@
                 <button type="submit" class="search-btn"><i class="bi bi-search text-dark"></i></button>
             </form>
 
-           {% if user.is_authenticated %}
-                <form action="{% url 'user:logout' %}" method="post" class="btn-responsive-width"> 
-                    {% csrf_token %}
-                    <button type="submit" class="btn-login-header w-100">LOGOUT</button>
-                </form>
-            {% else %}
-                <a href="{% url 'user:login' %}" class="btn-login-header btn-responsive-width">Login</a>
-            {% endif %}
-        </div>
+        {% if user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post" class="btn-responsive-width"> 
+                {% csrf_token %}
+                <button type="submit" class="btn-login-header w-100">LOGOUT</button>
+            </form>
+        {% else %}
+            <a href="{% url 'user:login' %}" class="btn-login-header btn-responsive-width">Login</a>
+        {% endif %}
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
-            <a href="?categoria=1" class="nav-link-custom {% if request.GET.categoria == '1' %}active{% endif %}">
-               Cultura
-            </a>
-            <a href="?categoria=2" class="nav-link-custom {% if request.GET.categoria == '2' %}active{% endif %}">
-               Deportes
-            </a>
-            <a href="?categoria=3" class="nav-link-custom {% if request.GET.categoria == '3' %}active{% endif %}">
-               Teatros
-            </a>
-            <a href="?categoria=4" class="nav-link-custom {% if request.GET.categoria == '4' %}active{% endif %}">
-               Eventos
-            </a>
-        </div>
+<div class="row">
+    <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
+        <a href="?categoria=1" class="nav-link-custom {% if request.GET.categoria == '1' %}active{% endif %}">
+            Cultura
+        </a>
+        <a href="?categoria=2" class="nav-link-custom {% if request.GET.categoria == '2' %}active{% endif %}">
+            Deportes
+        </a>
+        <a href="?categoria=3" class="nav-link-custom {% if request.GET.categoria == '3' %}active{% endif %}">
+            Teatros
+        </a>
+        <a href="?categoria=4" class="nav-link-custom {% if request.GET.categoria == '4' %}active{% endif %}">
+            Eventos
+        </a>
     </div>
+</div>
 </div>
