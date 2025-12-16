@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Acerca de</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Colores personalizados con Tailwind desde CDN -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        natural: "#FFF9F0",
+                        noche: "#07151D",
+                        atardecer: "#EA7300",
+                        tierra: "#702007",
+                        laguna: "#08525E",
+                        arena: "#C2B598",
+                    },
+                    fontFamily: {
+                        logo: ['"Hyperspace Race Capsule"', "sans-serif"],
+                        texto: ["Verdana", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-natural font-texto text-noche">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow">
+        <div class="max-w-5xl mx-auto px-6 py-6">
+            <h1 class="text-4xl font-bold text-atardecer">
+                Acerca de Nosotros
+            </h1>
+        </div>
+    </header>
+
+    <!-- Contenido -->
+    <main class="max-w-5xl mx-auto px-6 mt-12 space-y-10">
+
+        <!-- Quiénes somos -->
+        <section class="bg-white p-8 rounded-2xl shadow-md border border-arena/40">
+            <h2 class="text-2xl font-semibold text-laguna mb-4">¿Quiénes somos?</h2>
+
+            <p class="text-lg leading-relaxed">
+                Somos un blog creado con mucho amor, dedicado a compartir contenido,
+                historias y experiencias de la ciudad de Resistencia. Nuestro objetivo es construir un espacio
+                donde la creatividad, la comunidad y la identidad local sean protagonistas.
+            </p>
+        </section>
+
+        <!-- El equipo -->
+        <section class="bg-white p-8 rounded-2xl shadow-md border border-arena/40">
+            <h2 class="text-2xl font-semibold text-laguna mb-4">Nuestro equipo:</h2>
+
+            <p class="text-lg leading-relaxed mb-4">
+                Este proyecto está impulsado por un equipo apasionado, curioso
+                y siempre listo para aprender y mejorar:
+            </p>
+
+            <ul class="list-disc list-inside space-y-1 text-lg">
+                <li>Carla Fernández — Diseño gráfico y frontend</li>
+                <li>Diego Zdunek — Maestro de la base de datos</li>
+                <li>Gastón Almirón — Frontend y soporte creativo</li>
+                <li>Lucas Barrera — El espíritu misterioso del grupo</li>
+                <li>Nayla Vega — Backend y coordinación general del proyecto</li>
+            </ul>
+        </section>
+
+        <!-- Volver -->
+        <div class="text-center py-6">
+            <a href="/" class="text-atardecer font-semibold hover:underline">
+                ← Volver al inicio
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title_layout %}{% endblock title_layout %}</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Verdana', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-natural': '#FFF9F0',
+                        'brand-noche': '#07151D',
+                        'brand-atardecer': '#EA7300',
+                        'brand-tierra': '#702007',
+                        'brand-arena': '#C2B598',
+                    },
+                    fontFamily: {
+                        'title': ['Oswald', 'sans-serif'],
+                        'body': ['Verdana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-natural font-body">
+    {% block content_layout %}{% endblock content_layout %}
+</body>
+</html>
