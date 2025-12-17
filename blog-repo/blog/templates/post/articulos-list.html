@@ -1,0 +1,15 @@
+{% extends "layouts/base-layout.html" %}
+
+{% block content_layout %}
+<h1>{{ categoria.nombre }}</h1>
+
+{% for articulo in articulos %}
+    <div>
+        <h3>{{ articulo.titulo }}</h3>
+        <p>{{ articulo.descripcion }}</p>
+        <a href="{% url 'post:detalle_articulo' articulo.slug %}">Leer más</a>
+    </div>
+{% empty %}
+    <p>No hay artículos en esta categoría.</p>
+{% endfor %}
+{% endblock %}

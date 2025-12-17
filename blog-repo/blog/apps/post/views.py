@@ -104,7 +104,7 @@ class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
 def articulos_por_categoria(request, slug):
     categoria = get_object_or_404(Categoria, slug=slug)
     articulos = Articulo.objects.filter(categoria=categoria)
-    return render(request, 'post/articulos-list.html', {
+    return render(request, 'post/post-list.html', {
         'categoria': categoria,
         'articulos': articulos
     })

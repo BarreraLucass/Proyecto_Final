@@ -1,15 +1,33 @@
 {% extends 'layouts/base-layout.html' %}
+
 {% block content_layout %}
 <div class="container mt-4">
-    <h2>Lista de artículos</h2>
-    <ul>
+
+    <h2 class="mb-4">Artículos en: {{ categoria.nombre }}</h2>
+
+    <div class="row g-4">
         {% for articulo in articulos %}
-            <li>
-                <a href="{% url 'post:detalle_articulo' articulo.slug %}">{{ articulo.titulo }}</a>
-            </li>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+
+                    {% if articulo.imagen %}
+                        <img src="{{ articulo.imagen.url }}" class="card-img-top" alt="{{ articulo.titulo }}">
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ articulo.titulo }}</h5>
+                        <p class="card-text text-muted">{{ articulo.descripcion|truncatewords:20 }}</p>
+                        <a href="{% url 'post:detalle_articulo' articulo.slug %}" class="btn btn-primary">
+                            Leer más
+                        </a>
+                    </div>
+
+                </div>
+            </div>
         {% empty %}
-            <li>No hay artículos cargados.</li>
+            <p>No hay artículos en esta categoría.</p>
         {% endfor %}
-    </ul>
+    </div>
+
 </div>
 {% endblock %}
