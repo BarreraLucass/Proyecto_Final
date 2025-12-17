@@ -8,8 +8,6 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('', include('apps.resistenciaViva.urls', namespace='resistenciaViva')),
-
     path('', include("apps.core.urls", namespace='core')),
     path('user/', include('apps.user.urls', namespace='user')),
     path("login/", auth_views.LoginView.as_view(template_name="auth/auth-login.html"), name="login"),
@@ -19,6 +17,7 @@ urlpatterns = [
     path('resistencia/', include('apps.resistenciaViva.urls', namespace='resistenciaViva')),
     path('contacto/', include("apps.contacto.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('post/', include('apps.post.urls', namespace='post')),
 
 ]
 

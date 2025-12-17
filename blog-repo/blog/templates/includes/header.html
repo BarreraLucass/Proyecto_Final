@@ -1,66 +1,105 @@
 {% load static %}
 
 <style>
-    
     .nav-link-custom {
         white-space: nowrap;
         padding: 8px 16px;
-        margin-bottom: 5px; 
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+        color: var(--cat-color, #333);
+        border: 1px solid var(--cat-color, #ccc);
+        background-color: transparent;
+        border-radius: 5px;
+        text-decoration: none;
     }
 
-
-@media (max-width: 768px) {
-    .nav-link-custom {
-        font-size: 0.9rem;
-        padding: 6px 12px;
+    .nav-link-custom:hover {
+        background-color: var(--cat-color, #333);
+        color: white !important;
     }
-}
+
+    .nav-link-custom.active {
+        background-color: var(--cat-color, #333);
+        color: white !important;
+    }
+
+    @media (max-width: 768px) {
+        .nav-link-custom {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+        }
+    }
+
     .logo-container {
         text-align: center;
         margin-bottom: 1rem;
     }
 
-
-.btn-responsive-width {
-    width: 100%;           
-    display: block;         
-    text-align: center;
-}
-
-@media (min-width: 768px) {
     .btn-responsive-width {
-        width: auto !important;  
-        display: inline-block;   
-        min-width: 100px;        
+        width: 100%;
+        display: block;
+        text-align: center;
     }
-}
 
+    @media (min-width: 768px) {
+        .btn-responsive-width {
+            width: auto !important;
+            display: inline-block;
+            min-width: 100px;
+        }
+    }
+</style>
 
-.nav-link-custom {
-    white-space: nowrap;
-    padding: 8px 16px;
-    margin-bottom: 5px;
-    transition: all 0.3s ease;
-    
-    
-    color: var(--cat-color, #333); 
-    border: 1px solid var(--cat-color, #ccc);
-    background-color: transparent;
-    border-radius: 5px;
-    text-decoration: none;
-}
+{% load static %}
 
+<style>
+    .nav-link-custom {
+        white-space: nowrap;
+        padding: 8px 16px;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+        color: var(--cat-color, #333);
+        border: 1px solid var(--cat-color, #ccc);
+        background-color: transparent;
+        border-radius: 5px;
+        text-decoration: none;
+    }
 
-.nav-link-custom:hover {
-    background-color: var(--cat-color, #333);
-    color: white !important;
-}
+    .nav-link-custom:hover {
+        background-color: var(--cat-color, #333);
+        color: white !important;
+    }
 
+    .nav-link-custom.active {
+        background-color: var(--cat-color, #333);
+        color: white !important;
+    }
 
-.nav-link-custom.active {
-    background-color: var(--cat-color, #333);
-    color: white !important;
-}
+    @media (max-width: 768px) {
+        .nav-link-custom {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+        }
+    }
+
+    .logo-container {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .btn-responsive-width {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .btn-responsive-width {
+            width: auto !important;
+            display: inline-block;
+            min-width: 100px;
+        }
+    }
 </style>
 
 <div class="container header-container">
@@ -89,7 +128,7 @@
 
             {% if user.is_authenticated %}
 
-                <!-- CREAR POST (MOVIDO ARRIBA) -->
+                <!-- CREAR POST -->
                 <a href="{% url 'post:nuevo_articulo' %}"
                    class="btn btn-responsive-width"
                    style="background-color: var(--accent-orange); color: white; font-weight: bold; padding: 8px 16px; border-radius: 2px;">
@@ -110,21 +149,10 @@
             {% endif %}
         </div>
     </div>
-</div>
-{% if request.path == '/' %}
-<div class="row">
-    <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
-        
-        {% for categoria in categorias %}
-            <a href="?categoria={{ categoria.id }}" 
-               class="nav-link-custom {% if request.GET.categoria == categoria.id|stringformat:'s' %}active{% endif %}"
-               style="--cat-color: {{ categoria.color }};">
-                {{ categoria.nombre }}
-            </a>
-        {% endfor %}
 
+    {% if request.path == '/' %}
     <!-- CATEGORÍAS -->
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
 
             {% for categoria in categorias %}
@@ -135,4 +163,5 @@
 
         </div>
     </div>
+    {% endif %}
 </div>
