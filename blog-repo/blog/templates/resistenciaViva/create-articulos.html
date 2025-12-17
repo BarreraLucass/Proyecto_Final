@@ -1,8 +1,302 @@
-<!-- prettier-ignore -->
 {% extends 'layouts/base-layout.html' %}
-{% block title_layout %} Creación de un nuevo articulo {% endblock title_layout %}
+{% load static %}
+
+{% block title_layout %}Cargar Post - Resistencia Viva{% endblock title_layout %}
+
 {% block content_layout %}
-<header>
-    <h1>Crea tu propio Articulo</h1>
-</header>
+
+<link rel="stylesheet" href="https://use.typekit.net/rug2vlx.css">
+
+<style>
+    /* --- AJUSTE GLOBAL PARA QUE OCUPE EL 100% DE LA PANTALLA --- */
+    /* Forzamos al body y html a no tener scroll general y usar flexbox */
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* Oculta el scroll de la ventana principal */
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* El bloque content_layout debe crecer para ocupar el espacio disponible */
+    /* Asumiendo que este bloque envuelve .cargar-post-section */
+    
+    .cargar-post-section {
+        background-color: #FFF8F0;
+        /* Quitamos min-height: 100vh para que no fuerce scroll */
+        flex: 1; /* Ocupa todo el espacio entre header y footer */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px; /* Reducido un poco */
+        overflow-y: auto; /* Permite scroll interno si la pantalla es muy chica */
+    }
+    
+    .cargar-post-card {
+        background-color: #010E18;
+        width: 100%;
+        max-width: 1000px; /* Un poco más ancho para aprovechar espacio horizontal */
+        padding: 25px 40px; /* Padding más compacto */
+        color: white;
+        position: relative;
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        
+        /* Asegura que si el contenido es mucho, el scroll esté DENTRO de la card */
+        max-height: 95%; 
+        overflow-y: auto;
+    }
+
+    /* Personalización del scrollbar para la tarjeta */
+    .cargar-post-card::-webkit-scrollbar {
+        width: 8px;
+    }
+    .cargar-post-card::-webkit-scrollbar-track {
+        background: #010E18; 
+    }
+    .cargar-post-card::-webkit-scrollbar-thumb {
+        background: #C4A577; 
+        border-radius: 4px;
+    }
+
+    .titulo-espacial2 {
+        font-family: "hyperspace-race-cap-variable", sans-serif;
+        font-variation-settings: "wdth" 75, "wght" 300;
+        font-weight: 700; 
+        font-stretch: 75%; 
+        font-size: 3rem;
+        text-transform: uppercase;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr; /* Columna izq un poco más ancha para el texto */
+        gap: 25px;
+        margin-bottom: 15px;
+    }
+
+    .form-control-custom {
+        width: 100%;
+        background-color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-bottom: 15px; /* Margen entre inputs reducido */
+        font-size: 0.95rem;
+        color: #000;
+        border-radius: 3px;
+    }
+
+    textarea.form-control-custom {
+        min-height: 150px; /* Reducido de 200px para que quepa mejor */
+        resize: none; /* Evita que el usuario rompa el diseño estirando */
+    }
+
+    select.form-control-custom {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px;
+        padding-right: 40px;
+    }
+
+    /* Área de upload más compacta */
+    .upload-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #C4A577;
+        border-radius: 3px;
+        padding: 20px;
+        background-color: rgba(196, 165, 119, 0.05);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-height: 120px; /* Reducido de 180px */
+    }
+
+    .upload-area:hover {
+        background-color: rgba(196, 165, 119, 0.1);
+        border-color: #FFFFFF;
+    }
+
+    .upload-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+    }
+
+    .upload-icon svg {
+        width: 100%;
+        height: 100%;
+        stroke: #C4A577;
+    }
+
+    .upload-text {
+        font-size: 0.85rem;
+        color: #C4A577;
+        text-align: center;
+        margin: 0;
+    }
+
+    .file-input-hidden {
+        display: none;
+    }
+
+    .selected-file {
+        font-size: 0.8rem;
+        color: #C4A577;
+        margin-top: 5px;
+        text-align: center;
+        height: 20px; /* Espacio reservado para el texto */
+    }
+
+    .btn-contact {
+        background: transparent;
+        border: 2px solid #C4A577; /* Borde dorado para resaltar */
+        color: #C4A577;
+        padding: 8px 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin-top: 5px;
+        text-decoration: none;
+    }
+
+    .btn-contact:hover {
+        background-color: #C4A577;
+        color: #010E18;
+    }
+
+    .link-back {
+        color: #ccc;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.85rem;
+    }
+
+    .link-back:hover { 
+        text-decoration: underline; 
+        color: #FFFFFF;
+    }
+
+    label {
+        font-family:Verdana, sans-serif ;
+        font-size: 0.9rem;
+       
+    }
+    
+    @media (max-width: 768px) {
+        /* En móviles permitimos scroll normal porque no cabe todo */
+        html, body {
+            overflow: auto; 
+            height: auto;
+            display: block;
+        }
+        .cargar-post-section {
+            display: block;
+            height: auto;
+        }
+        .form-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .titulo-espacial2 { 
+            font-size: 2rem; 
+        }
+    }
+</style>
+
+<div class="cargar-post-section">
+    <div class="cargar-post-card">
+        
+        <h1 class="titulo-espacial2">Cargar Post</h1>
+
+        <form method="POST" enctype="multipart/form-data" id="postForm">
+            {% csrf_token %}
+
+            <div class="form-grid">
+                <div>
+                    <div>
+                        <label class="d-block mb-1 fw-bold">Título</label>
+                        <input type="text" name="titulo" class="form-control-custom" placeholder="TÍTULO DEL POST" required>
+                    </div>
+
+                    <div>
+                        <label class="d-block mb-1 fw-bold">Subtítulo</label>
+                        <input type="text" name="subtitulo" class="form-control-custom" placeholder="Bajada o descripción corta">
+                    </div>
+
+                    <div>
+                        <label class="d-block mb-1 fw-bold">Contenido</label>
+                        <textarea name="texto" class="form-control-custom" placeholder="Escribe aquí..." required></textarea>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column;">
+                    <div>
+                        <label class="d-block mb-1 fw-bold">Categoría</label>
+                        <select name="categoria" class="form-control-custom" required>
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option value="cultura">Cultura</option>
+                            <option value="deportes">Deportes</option>
+                            <option value="teatros">Teatros</option>
+                            <option value="eventos">Eventos</option>
+                        </select>
+                    </div>
+
+                    <div style="flex-grow: 1; display: flex; flex-direction: column;">
+                        <label class="d-block mb-1 fw-bold">Imagen de Portada</label>
+                        <div class="upload-area" style="flex-grow: 1;" onclick="document.getElementById('imagenes').click()">
+                            <div class="upload-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <p class="upload-text">Clic para subir imagen</p>
+                        </div>
+                        <input type="file" id="imagenes" name="imagenes" class="file-input-hidden" multiple accept="image/*" onchange="mostrarArchivos()">
+                        <div id="archivos-seleccionados" class="selected-file"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <a href="{% url 'core:index' %}" class="link-back">&lt; Cancelar</a>
+                
+                <button type="submit" class="btn-contact">
+                    Publicar
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    function mostrarArchivos() {
+        const input = document.getElementById('imagenes');
+        const display = document.getElementById('archivos-seleccionados');
+        
+        if (input.files.length > 0) {
+            // Muestra solo el nombre del primer archivo o la cantidad
+            const nombre = input.files[0].name;
+            if(input.files.length > 1){
+                display.textContent = `${input.files.length} archivos seleccionados`;
+            } else {
+                display.textContent = nombre;
+            }
+        } else {
+            display.textContent = '';
+        }
+    }
+</script>
+
 {% endblock content_layout %}

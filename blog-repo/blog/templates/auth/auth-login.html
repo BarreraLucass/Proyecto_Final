@@ -3,6 +3,7 @@
 
 {% block content_layout %}
 <link rel="stylesheet" href="https://use.typekit.net/rug2vlx.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <style>
     .titulo-espacial {
@@ -12,6 +13,9 @@
         font-stretch: 75%;
         font-size: 3rem;
         text-transform: uppercase;
+    }
+     .titulo-verdana {
+        font-family: Verdana, sans-serif;
     }
 </style>
 
@@ -41,39 +45,46 @@
                 {% endif %}
 
                 <div>
-                    <label class="block text-brand-natural text-sm mb-2 font-bold">Ingresar e-mail:</label>
+                    <label class="block text-brand-natural text-sm mb-2 titulo-verdana ">Ingresar e-mail:</label>
                     <input type="email" name="email"
                         class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
                         required>
                 </div>
 
                 <div>
-                    <label class="block text-brand-natural text-sm mb-2 font-bold">Ingresar contraseña:</label>
-                    <input type="password" name="password"
-                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
+                    <label class="block text-brand-natural text-sm mb-2 titulo-verdana ">Ingresar contraseña:</label>
+                    <div class="relative">
+                    <input type="password" id= "password" name="password"
+                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
                         required>
+                    <!-- Botón con ícono de ojo -->
+                    <button type="button" id="togglePassword" 
+                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600 hover:text-brand-atardecer focus:outline-none">
+                        <i class="bi bi-eye"></i>
+                    </button>
                 </div>
+        </div>
 
                 <div class="flex items-center justify-between text-sm">
                     <label class="flex items-center text-brand-natural cursor-pointer">
-                        <input type="checkbox" class="mr-2 rounded text-brand-atardecer focus:ring-brand-atardecer">
+                        <input type="checkbox" class="titulo-verdana mr-2 rounded text-brand-atardecer focus:ring-brand-atardecer">
                         Mantener sesión iniciada
                     </label>
-                    <a href="#" class="text-brand-tierra hover:text-brand-atardecer font-bold transition-colors">
+                    <a href="#" class="text-brand-tierra hover:text-brand-atardecer titulo-verdana  transition-colors">
                         ¿Olvidaste tu contraseña?
                     </a>
                 </div>
 
                 <div class="pt-4">
-                    <button class="w-full bg-brand-natural text-brand-noche hover:bg-brand-arena font-title text-xl py-3 rounded font-bold uppercase tracking-wider transition-colors shadow-lg">
+                    <button class="w-full bg-brand-natural text-brand-noche hover:bg-brand-arena font-title text-xl py-3 rounded titulo-verdana  uppercase tracking-wider transition-colors shadow-lg">
                         Ingresar
                     </button>
                 </div>
 
                 <div class="border-t border-gray-600 mt-8 pt-6 text-center text-brand-natural text-sm">
-                    <p>
+                    <p class="titulo-verdana ">
                         Si aún no tenes cuenta:
-                        <a href="{% url 'user:register' %}" class="inline-block ml-2 border border-brand-tierra text-brand-tierra px-3 py-1 rounded hover:bg-brand-tierra hover:text-white transition-colors">
+                        <a href="{% url 'user:register' %}" class="titulo-verdana  inline-block ml-2 border border-brand-tierra text-brand-tierra px-3 py-1 rounded hover:bg-brand-tierra hover:text-white transition-colors">
                             Registrarse aquí
                         </a>
                     </p>
@@ -85,5 +96,20 @@
 
     {% include 'includes/footer.html' %}
 
+    <script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+        // Cambia el tipo de input
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // Cambia el ícono
+        this.innerHTML = type === "password" 
+            ? '<i class="bi bi-eye"></i>' 
+            : '<i class="bi bi-eye-slash"></i>';
+    });
+</script>
 </div>
 {% endblock content_layout %}
