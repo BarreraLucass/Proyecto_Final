@@ -71,7 +71,9 @@
 
                     <div class="d-flex flex-column align-items-center align-items-md-end text-center text-md-end">
                         <div class="mb-2">
-                            <img src="{% static 'public/logo2.png' %}" alt="Resistencia Viva" class="footer-logo-img">
+                            <a href="{% url 'core:index' %}" >
+                                <img src="{% static 'public/logo2.png' %}" alt="Resistencia Viva" class="footer-logo-img">
+                            </a>
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <small>Desarrollado por:</small>

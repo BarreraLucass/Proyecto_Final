@@ -34,6 +34,33 @@
         min-width: 100px;        
     }
 }
+
+
+.nav-link-custom {
+    white-space: nowrap;
+    padding: 8px 16px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    
+    
+    color: var(--cat-color, #333); 
+    border: 1px solid var(--cat-color, #ccc);
+    background-color: transparent;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+.nav-link-custom:hover {
+    background-color: var(--cat-color, #333);
+    color: white !important;
+}
+
+
+.nav-link-custom.active {
+    background-color: var(--cat-color, #333);
+    color: white !important;
+}
 </style>
 
 <div class="container header-container">
@@ -62,21 +89,19 @@
         {% endif %}
     </div>
 </div>
-
+{% if request.path == '/' %}
 <div class="row">
     <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
-        <a href="?categoria=1" class="nav-link-custom {% if request.GET.categoria == '1' %}active{% endif %}">
-            Cultura
-        </a>
-        <a href="?categoria=2" class="nav-link-custom {% if request.GET.categoria == '2' %}active{% endif %}">
-            Deportes
-        </a>
-        <a href="?categoria=3" class="nav-link-custom {% if request.GET.categoria == '3' %}active{% endif %}">
-            Teatros
-        </a>
-        <a href="?categoria=4" class="nav-link-custom {% if request.GET.categoria == '4' %}active{% endif %}">
-            Eventos
-        </a>
+        
+        {% for categoria in categorias %}
+            <a href="?categoria={{ categoria.id }}" 
+               class="nav-link-custom {% if request.GET.categoria == categoria.id|stringformat:'s' %}active{% endif %}"
+               style="--cat-color: {{ categoria.color }};">
+                {{ categoria.nombre }}
+            </a>
+        {% endfor %}
+
     </div>
 </div>
+{% endif %}
 </div>
