@@ -1,8 +1,9 @@
 from django.urls import path
-import apps.comentarios.views as view
+from . import views
 
 app_name = 'comentarios'
 
 urlpatterns = [
-    path('comentarios/',view.ComentariosView.as_view(), name='comentarios')
+    path('responder/<int:comentario_id>/', views.responder_comentario, name='responder'),
+    path('like/<int:comentario_id>/', views.like_comentario, name='like'),
 ]

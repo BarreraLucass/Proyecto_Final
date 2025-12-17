@@ -11,8 +11,8 @@
     .titulo-espacial {
         font-family: "hyperspace-race-cap-variable", sans-serif;
         font-variation-settings: "wdth" 75, "wght" 300;
-        font-weight: 700; 
-        font-stretch: 75%; 
+        font-weight: 700;
+        font-stretch: 75%;
         font-size: 3rem;
         text-transform: uppercase;
     }
@@ -22,82 +22,98 @@
 </style>
 
 <div class="min-h-screen flex flex-col justify-between">
-    
-    <div class="w-full p-6">
+
+        <div class="w-full p-6">
         <a href="{% url 'core:index' %}" class="inline-block hover:opacity-80 transition-opacity">
             <img src="{% static 'public/logo1.png' %}" alt="Resistencia Viva Logo" class="h-16 w-auto">
         </a>
     </div>
+<div class="min-h-screen flex flex-col items-center justify-center px-4 py-10 mb-3">
 
-    <div class="flex-grow flex flex-col items-center justify-center px-4 mb-3">
-        
-        <div class="w-full max-w-md bg-brand-noche p-10 rounded-xl shadow-2xl relative">
-            
-            <h2 class="titulo-espacial text-4xl text-center text-brand-natural uppercase mb-8">
-                Crear cuenta
-            </h2>
+    <div class="w-full max-w-md bg-brand-noche p-10 rounded-xl shadow-2xl relative">
 
-            <form method="POST" class="space-y-5">
-                {% csrf_token %}
+        <h2 class="titulo-espacial text-4xl text-center text-brand-natural uppercase mb-8">
+            Crear cuenta
+        </h2>
 
-                <div>
-                    <label class="block text-brand-natural text-sm mb-2 titulo-verdana ">Nombre de usuario</label>
-                    <input type="text" name="username"
-                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
-                        required>
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+
+            {# --- VALIDACIÓN DE ERRORES (TU PARTE) --- #}
+            {% if form.non_field_errors %}
+                <div class="bg-red-600 text-white p-3 rounded mb-4 text-center font-bold">
+                    {{ form.non_field_errors }}
                 </div>
+            {% endif %}
 
-                <div>
-                    <label class="block text-brand-natural text-sm mb-2 titulo-verdana ">E-mail</label>
-                    <input type="email" name="email"
-                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
-                        required>
-                </div>
-
-                <div>
-                    <label class="block text-brand-natural text-sm mb-2 titulo-verdana ">Contraseña</label>
-                    <div class="relative">
-                        <input type="password" id="pass1" name="password1"
-                            class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
-                            required>
-                        <button type="button" onclick="togglePass('pass1', this)" 
-                            class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600 hover:text-brand-atardecer focus:outline-none">
-                            <i class="bi bi-eye"></i>
-                        </button>
+            {% for field in form %}
+                {% if field.errors %}
+                    <div class="bg-red-600 text-white p-2 rounded mb-2 text-center text-sm">
+                        {{ field.label }}: {{ field.errors|striptags }}
                     </div>
-                </div>
+                {% endif %}
+            {% endfor %}
 
-                <div>
-                    <label class="block text-brand-natural text-sm mb-2 titulo-verdana ">Repetir contraseña</label>
-                    <div class="relative">
-                        <input type="password" id="pass2" name="password2"
-                            class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer" 
-                            required>
-                         <button type="button" onclick="togglePass('pass2', this)" 
-                            class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600 hover:text-brand-atardecer focus:outline-none">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                </div>
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 titulo-verdana">Nombre de usuario</label>
+                <input type="text" name="username"
+                    class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
+                    required>
+            </div>
 
-                <div class="pt-4">
-                    <button class="w-full bg-brand-natural text-brand-noche hover:bg-brand-arena font-title text-xl py-3 rounded titulo-verdana  uppercase tracking-wider transition-colors shadow-lg">
-                        Registrarse
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 titulo-verdana">E-mail</label>
+                <input type="email" name="email"
+                    class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
+                    required>
+            </div>
+
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 titulo-verdana">Contraseña</label>
+                <div class="relative">
+                    <input type="password" id="pass1" name="password1"
+                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
+                        required>
+                    <button type="button" onclick="togglePass('pass1', this)"
+                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600 hover:text-brand-atardecer focus:outline-none">
+                        <i class="bi bi-eye"></i>
                     </button>
                 </div>
+            </div>
 
-                <div class="border-t border-gray-600 mt-6 pt-6 text-center text-brand-natural text-sm">
-                    <p>
-                        ¿Ya tenes una cuenta?
-                        <a href="{% url 'user:login' %}" class="inline-block ml-2 border border-brand-tierra text-brand-tierra px-3 py-1 rounded hover:bg-brand-tierra hover:text-white transition-colors titulo-verdana ">
-                            Loguearse aquí
-                        </a>
-                    </p>
+            <div>
+                <label class="block text-brand-natural text-sm mb-2 titulo-verdana">Repetir contraseña</label>
+                <div class="relative">
+                    <input type="password" id="pass2" name="password2"
+                        class="w-full bg-white text-brand-noche px-4 py-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-atardecer"
+                        required>
+                    <button type="button" onclick="togglePass('pass2', this)"
+                        class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-600 hover:text-brand-atardecer focus:outline-none">
+                        <i class="bi bi-eye"></i>
+                    </button>
                 </div>
-            </form>
+            </div>
 
-        </div>
+            <div class="pt-4">
+                <button class="w-full bg-brand-natural text-brand-noche hover:bg-brand-arena font-title text-xl py-3 rounded titulo-verdana uppercase tracking-wider transition-colors shadow-lg">
+                    Registrarse
+                </button>
+            </div>
+
+            <div class="border-t border-gray-600 mt-6 pt-6 text-center text-brand-natural text-sm">
+                <p>
+                    ¿Ya tenes una cuenta?
+                    <a href="{% url 'user:login' %}"
+                       class="inline-block ml-2 border border-brand-tierra text-brand-tierra px-3 py-1 rounded hover:bg-brand-tierra hover:text-white transition-colors titulo-verdana">
+                        Iniciar sesión
+                    </a>
+                </p>
+            </div>
+
+        </form>
     </div>
+</div>
+
 
     {% include 'includes/footer.html' %}
 
@@ -119,4 +135,5 @@
     </script>
 
 </div>
+
 {% endblock content_layout %}

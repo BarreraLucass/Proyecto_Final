@@ -1,11 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    ESTA ES LA LISTA DE POSTEOS
-</body>
-</html>
+{% extends 'layouts/base-layout.html' %}
+
+{% block content_layout %}
+<div class="container mt-4">
+
+    <h2 class="mb-4">Artículos en: {{ categoria.nombre }}</h2>
+
+    <div class="row g-4">
+        {% for articulo in articulos %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+
+                    {% if articulo.imagen %}
+                        <img src="{{ articulo.imagen.url }}" class="card-img-top" alt="{{ articulo.titulo }}">
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ articulo.titulo }}</h5>
+                        <p class="card-text text-muted">{{ articulo.descripcion|truncatewords:20 }}</p>
+                        <a href="{% url 'post:detalle_articulo' articulo.slug %}" class="btn btn-primary">
+                            Leer más
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay artículos en esta categoría.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

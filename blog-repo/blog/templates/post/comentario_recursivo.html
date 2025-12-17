@@ -1,0 +1,39 @@
+{% for respuesta in comentario.get_respuestas %}
+    <div style="margin-left: 25px; border-left: 2px solid #ccc; padding-left: 10px; margin-top: 10px;">
+        <strong>{{ respuesta.usuario.username }}</strong>
+        <p class="mb-1">{{ respuesta.contenido }}</p>
+        <small class="text-muted">{{ respuesta.fecha|date:"d M Y H:i" }}</small>
+
+        {% include "post/comentario_recursivo.html" with comentario=respuesta %}
+    </div>
+
+    {% if user.is_authenticated %}
+        <button class="btn btn-sm text-primary mt-2 toggle-respuesta" data-id="{{ respuesta.id }}">
+            💬 Responder
+        </button>
+
+        <form method="post"
+              action="{% url 'comentarios:responder' respuesta.id %}"
+              class="form-respuesta mt-2"
+              id="form-respuesta-{{ respuesta.id }}"
+              style="display: none;">
+            {% csrf_token %}
+            <textarea name="contenido" rows="2" class="form-control mb-2" placeholder="Escribe tu respuesta..." required></textarea>
+            <button type="submit" class="btn btn-primary btn-sm">Enviar respuesta</button>
+        </form>
+    {% endif %}
+
+    <form method="post"
+          action="{% url 'comentarios:like' respuesta.id %}"
+          class="d-inline ms-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-like">
+            {% if user.is_authenticated and user in respuesta.likes.all %}
+                ❤️
+            {% else %}
+                🤍
+            {% endif %}
+            {{ respuesta.total_likes }}
+        </button>
+    </form>
+{% endfor %}
