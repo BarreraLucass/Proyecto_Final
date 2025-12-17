@@ -197,6 +197,10 @@ from apps.post.models import Articulo
 from apps.categorias.models import Categoria
 from django.views.generic import TemplateView
 from django.http import HttpResponse
+from django.conf import settings
+import os
+# 
+
 
 
 def home(request):

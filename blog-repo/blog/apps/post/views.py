@@ -2,9 +2,21 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.shortcuts import redirect,  get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.decorators import login_required
 from .models import Articulo, Categoria
 from apps.comentarios.forms import ComentarioForm
+
+# Vista para dar like a un artículo que lo obliga a estar logueado
+@login_required
+def like_articulo(request, slug):
+    articulo = get_object_or_404(Articulo, slug=slug)
+
+    if request.user in articulo.likes.all():
+        articulo.likes.remove(request.user)
+    else:
+        articulo.likes.add(request.user)
+
+    return redirect('post:detalle_articulo', slug=slug)
 
 
 # Lista de artículos
@@ -18,7 +30,7 @@ class ArticuloListView(ListView):
 # DETALLE + COMENTARIOS, Dios ayudame por favor (soy ateo)
 class ArticuloDetailView(DetailView):
     model = Articulo
-    template_name = "post/detalle_articulo.html"
+    template_name = "post/post-detail.html"
     context_object_name = "articulo"
     slug_field = "slug"
     slug_url_kwarg = "slug"
@@ -27,9 +39,13 @@ class ArticuloDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         articulo = self.get_object()
 
-        context["comentarios"] = articulo.comentarios.filter(activo=True)
-        context["form"] = ComentarioForm()
+        # 🔥 Solo comentarios principales
+        context["comentarios"] = articulo.comentarios.filter(
+            activo=True,
+            parent__isnull=True
+        )
 
+        context["form"] = ComentarioForm()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -40,17 +56,27 @@ class ArticuloDetailView(DetailView):
             nuevo_comentario = form.save(commit=False)
             nuevo_comentario.articulo = self.object
             nuevo_comentario.usuario = request.user
+
+            # 🔥 Manejar respuestas
+            parent_id = request.POST.get("parent_id")
+            if parent_id:
+                nuevo_comentario.parent_id = parent_id
+
             nuevo_comentario.save()
 
         return redirect("post:detalle_articulo", slug=self.object.slug)
-
-
+    
+    
 # Crear artículo (solo usuarios logueados)
 class ArticuloCreateView(LoginRequiredMixin, CreateView):
     model = Articulo
     template_name = "post/post-new.html"
     fields = ['titulo', 'contenido', 'imagen', 'categoria']
     success_url = reverse_lazy('post:lista_articulos')
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
 
 
 # Editar artículo (solo usuarios logueados)

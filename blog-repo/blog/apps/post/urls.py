@@ -6,6 +6,7 @@ from .views import (
     ArticuloUpdateView,
     ArticuloDeleteView,
     articulos_por_categoria,
+    like_articulo,
 )
 
 app_name = 'post'
@@ -17,4 +18,5 @@ urlpatterns = [
     path('<slug:slug>/', ArticuloDetailView.as_view(), name='detalle_articulo'),
     path('<slug:slug>/editar/', ArticuloUpdateView.as_view(), name='editar_articulo'),
     path('<slug:slug>/eliminar/', ArticuloDeleteView.as_view(), name='eliminar_articulo'),
+    path('<slug:slug>/like/', like_articulo, name='like_articulo'),
 ]
