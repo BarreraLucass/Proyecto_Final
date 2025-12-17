@@ -114,25 +114,14 @@
 {% if request.path == '/' %}
 <div class="row">
     <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
-        
+
         {% for categoria in categorias %}
-            <a href="?categoria={{ categoria.id }}" 
-               class="nav-link-custom {% if request.GET.categoria == categoria.id|stringformat:'s' %}active{% endif %}"
+            <a href="{% url 'post:categoria' categoria.slug %}"
+               class="nav-link-custom"
                style="--cat-color: {{ categoria.color }};">
                 {{ categoria.nombre }}
             </a>
         {% endfor %}
-
-    <!-- CATEGORÍAS -->
-    <div class="row">
-        <div class="col-12 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center nav-links gap-2">
-
-            {% for categoria in categorias %}
-                <a href="{% url 'post:categoria' categoria.slug %}" class="nav-link-custom">
-                    {{ categoria.nombre }}
-                </a>
-            {% endfor %}
-
-        </div>
     </div>
 </div>
+{% endif %}

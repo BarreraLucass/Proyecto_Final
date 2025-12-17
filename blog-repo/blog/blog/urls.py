@@ -8,9 +8,11 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('', include('apps.resistenciaViva.urls', namespace='resistenciaViva')),
-
+    # Home
     path('', include("apps.core.urls", namespace='core')),
+
+    # rutas principales
+    path('post/', include('apps.post.urls', namespace='post')),
     path('user/', include('apps.user.urls', namespace='user')),
     path("login/", auth_views.LoginView.as_view(template_name="auth/auth-login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="core:index"), name="logout"),
@@ -21,8 +23,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
 ]
-
-
 
 if settings.DEBUG:
     from django.conf.urls.static import static
