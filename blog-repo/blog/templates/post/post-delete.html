@@ -1,0 +1,17 @@
+{% extends 'layouts/base-layout.html' %}
+
+{% block content_layout %}
+<div class="container mt-4">
+    <h2>Eliminar artículo</h2>
+
+    <p class="mt-3">
+        ¿Estás seguro de que querés eliminar <strong>{{ articulo.titulo }}</strong>?
+    </p>
+
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'post:detalle_articulo' articulo.slug %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

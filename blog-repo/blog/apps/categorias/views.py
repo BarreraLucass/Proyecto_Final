@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Categoria
 from apps.post.models import Articulo
+from django.contrib.auth.decorators import login_required
+
 
 def articulos_por_categoria(request, slug): 
     categoria = get_object_or_404(Categoria, slug=slug) # Obtenes la categoría o devolver 404 si no existe
